@@ -40,10 +40,11 @@
             margin: 0 8px;
           }
           .active-btn {
-            background: $color-1;
+            background: $color-3;
+            color: $color-4;
 
             &:hover {
-              background: $color-2;
+              background: $color-3;
             }
           }
           li:not(.active-btn) {
