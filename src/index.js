@@ -8,16 +8,16 @@ import thunk from "redux-thunk";
 import rootReducer from "./reducers";
 // dev tools
 import { composeWithDevTools } from "redux-devtools-extension";
-//import { getUsers } from "./actions/users.actions";
-//import { getPosts } from "./actions/post.actions";
+import { getUsers } from "./actions/users.actions";
+import { getPosts } from "./actions/post.actions";
 
 const store = createStore(
   rootReducer,
   composeWithDevTools(applyMiddleware(thunk))
 );
 
-//store.dispatch(getUsers());
-//store.dispatch(getPosts());
+store.dispatch(getUsers());
+store.dispatch(getPosts());
 
 ReactDOM.render(
   <Provider store={store}>

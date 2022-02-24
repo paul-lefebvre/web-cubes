@@ -4,15 +4,17 @@ import SignInForm from "./SignInForm";
 
 const SignUpForm = () => {
   const [formSubmit, setFormSubmit] = useState(false);
-  const [pseudo, setPseudo] = useState("");
-  const [email, setEmail] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [controlPassword, setControlPassword] = useState("");
 
   const handleRegister = async (e) => {
     e.preventDefault();
     const terms = document.getElementById("terms");
-    const pseudoError = document.querySelector(".pseudo.error");
+    const prenomError = document.querySelector(".prenom.error");
+    const nomError = document.querySelector(".nom.error");
     const emailError = document.querySelector(".email.error");
     const passwordError = document.querySelector(".password.error");
     const passwordConfirmError = document.querySelector(
@@ -31,19 +33,22 @@ const SignUpForm = () => {
       if (!terms.checked)
         termsError.innerHTML = "Veuillez valider les conditions générales";
     } else {
+      console.log(firstname, lastname, mail, password);
       await axios({
         method: "post",
-        url: `${process.env.REACT_APP_API_URL}api/user/register`,
+        url: `${process.env.REACT_APP_API_URL}api/users/`,
         data: {
-          pseudo,
-          email,
+          firstname,
+          lastname,
+          mail,
           password,
         },
       })
         .then((res) => {
           console.log(res);
           if (res.data.errors) {
-            pseudoError.innerHTML = res.data.errors.pseudo;
+            prenomError.innerHTML = res.data.errors.prenom;
+            nomError.innerHTML = res.data.errors.nom;
             emailError.innerHTML = res.data.errors.email;
             passwordError.innerHTML = res.data.errors.password;
           } else {
@@ -52,6 +57,7 @@ const SignUpForm = () => {
         })
         .catch((err) => console.log(err));
     }
+    console.log(firstname, lastname, mail, password);
   };
 
   return (
@@ -66,16 +72,27 @@ const SignUpForm = () => {
         </>
       ) : (
         <form action="" onSubmit={handleRegister} id="sign-up-form">
-          <label htmlFor="pseudo">Pseudo</label>
+          <label htmlFor="prenom">Prénom</label>
           <br />
           <input
             type="text"
-            name="pseudo"
-            id="pseudo"
-            onChange={(e) => setPseudo(e.target.value)}
-            value={pseudo}
+            name="prenom"
+            id="prenom"
+            onChange={(e) => setFirstname(e.target.value)}
+            value={firstname}
           />
-          <div className="pseudo error"></div>
+          <div className="prenom error"></div>
+          <br />
+          <label htmlFor="nom">Nom</label>
+          <br />
+          <input
+            type="text"
+            name="nom"
+            id="nom"
+            onChange={(e) => setLastname(e.target.value)}
+            value={lastname}
+          />
+          <div className="nom error"></div>
           <br />
           <label htmlFor="email">Email</label>
           <br />
@@ -83,8 +100,8 @@ const SignUpForm = () => {
             type="text"
             name="email"
             id="email"
-            onChange={(e) => setEmail(e.target.value)}
-            value={email}
+            onChange={(e) => setMail(e.target.value)}
+            value={mail}
           />
           <div className="email error"></div>
           <br />
