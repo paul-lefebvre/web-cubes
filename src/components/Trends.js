@@ -29,7 +29,7 @@ const Trends = () => {
           {trendList.length &&
             trendList.map((post) => {
               return (
-                <li key={post._id}>
+                <li key={post.usr_id}>
                   <div>
                     {post.picture && <img src={post.picture} alt="post-pic" />}
                     {post.video && (
@@ -38,7 +38,7 @@ const Trends = () => {
                         frameBorder="0"
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowFullScreen
-                        title={post._id}
+                        title={post.usr_id}
                       ></iframe>
                     )}
                     {isEmpty(post.picture) && isEmpty(post.video) && (
@@ -47,7 +47,7 @@ const Trends = () => {
                           usersData[0] &&
                           usersData
                             .map((user) => {
-                              if (user._id === post.posterId) {
+                              if (user.usr_id === post.posterId) {
                                 return user.picture;
                               } else {
                                 return null;

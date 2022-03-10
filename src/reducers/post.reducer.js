@@ -16,7 +16,7 @@ export default function postReducer(state = initialState, action) {
       return action.payload;
     case LIKE_POST:
       return state.map((post) => {
-        if (post._id === action.payload.postId) {
+        if (post.usr_id === action.payload.postId) {
           return {
             ...post,
             likers: [action.payload.userId, ...post.likers],
@@ -26,7 +26,7 @@ export default function postReducer(state = initialState, action) {
       });
     case UNLIKE_POST:
       return state.map((post) => {
-        if (post._id === action.payload.postId) {
+        if (post.usr_id === action.payload.postId) {
           return {
             ...post,
             likers: post.likers.filter((id) => id !== action.payload.userId),
@@ -36,7 +36,7 @@ export default function postReducer(state = initialState, action) {
       });
     case UPDATE_POST:
       return state.map((post) => {
-        if (post._id === action.payload.postId) {
+        if (post.usr_id === action.payload.postId) {
           return {
             ...post,
             message: action.payload.message,
@@ -44,14 +44,14 @@ export default function postReducer(state = initialState, action) {
         } else return post;
       });
     case DELETE_POST:
-      return state.filter((post) => post._id !== action.payload.postId);
+      return state.filter((post) => post.usr_id !== action.payload.postId);
     case EDIT_COMMENT:
       return state.map((post) => {
-        if (post._id === action.payload.postId) {
+        if (post.usr_id === action.payload.postId) {
           return {
             ...post,
             comments: post.comments.map((comment) => {
-              if (comment._id === action.payload.commentId) {
+              if (comment.usr_id === action.payload.commentId) {
                 return {
                   ...comment,
                   text: action.payload.text,
@@ -67,11 +67,11 @@ export default function postReducer(state = initialState, action) {
       });
     case DELETE_COMMENT:
       return state.map((post) => {
-        if (post._id === action.payload.postId) {
+        if (post.usr_id === action.payload.postId) {
           return {
             ...post,
             comments: post.comments.filter(
-              (comment) => comment._id !== action.payload.commentId
+              (comment) => comment.usr_id !== action.payload.commentId
             ),
           };
         } else return post;

@@ -11,10 +11,10 @@ const UploadImg = () => {
     e.preventDefault();
     const data = new FormData();
     data.append("name", userData.pseudo);
-    data.append("userId", userData._id);
+    data.append("userId", userData.usr_id);
     data.append("file", file);
 
-    dispatch(uploadPicture(data, userData._id));
+    dispatch(uploadPicture(data, userData.usr_id));
   };
 
   return (

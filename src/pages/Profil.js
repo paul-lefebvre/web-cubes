@@ -9,7 +9,7 @@ const Profil = () => {
   return (
     <div className="profil-page">
       {uid ? (
-        <UpdateProfil/>
+        <UpdateProfil />
       ) : (
         <div className="log-container">
           <Log signin={false} signup={true} />

@@ -18,7 +18,7 @@ const Card = ({ post }) => {
 
   const updateItem = () => {
     if (textUpdate) {
-      dispatch(updatePost(post._id, textUpdate));
+      dispatch(updatePost(post.usr_id, textUpdate));
     }
     setIsUpdated(false);
   };
@@ -28,7 +28,7 @@ const Card = ({ post }) => {
   }, [usersData]);
 
   return (
-    <li className="card-container" key={post._id}>
+    <li className="card-container" key={post.usr_id}>
       {isLoading ? (
         <i className="fas fa-spinner fa-spin"></i>
       ) : (
@@ -39,7 +39,7 @@ const Card = ({ post }) => {
                 !isEmpty(usersData[0]) &&
                 usersData
                   .map((user) => {
-                    if (user._id === post.posterId) return user.picture;
+                    if (user.usr_id === post.posterId) return user.picture;
                     else return null;
                   })
                   .join("")
@@ -54,12 +54,12 @@ const Card = ({ post }) => {
                   {!isEmpty(usersData[0]) &&
                     usersData
                       .map((user) => {
-                        if (user._id === post.posterId) return user.pseudo;
+                        if (user.usr_id === post.posterId) return user.pseudo;
                         else return null;
                       })
                       .join("")}
                 </h3>
-                {post.posterId !== userData._id && (
+                {post.posterId !== userData.usr_id && (
                   <FollowHandler idToFollow={post.posterId} type={"card"} />
                 )}
               </div>
@@ -90,15 +90,15 @@ const Card = ({ post }) => {
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
-                title={post._id}
+                title={post.usr_id}
               ></iframe>
             )}
-            {userData._id === post.posterId && (
+            {userData.usr_id === post.posterId && (
               <div className="button-container">
                 <div onClick={() => setIsUpdated(!isUpdated)}>
                   <img src="./img/icons/edit.svg" alt="edit" />
                 </div>
-                <DeleteCard id={post._id} />
+                <DeleteCard id={post.usr_id} />
               </div>
             )}
 

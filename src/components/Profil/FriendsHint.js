@@ -16,10 +16,10 @@ const FriendsHint = () => {
       let array = [];
       usersData.map((user) => {
         if (
-          user._id !== userData._id &&
-          !user.followers.includes(userData._id)
+          user.usr_id !== userData.usr_id &&
+          !user.followers.includes(userData.usr_id)
         ) {
-          return array.push(user._id);
+          return array.push(user.usr_id);
         } else {
           return null;
         }
@@ -39,7 +39,7 @@ const FriendsHint = () => {
       setFriendsHint(array);
     };
 
-    if (playOnce && !isEmpty(usersData[0]) && !isEmpty(userData._id)) {
+    if (playOnce && !isEmpty(usersData[0]) && !isEmpty(userData.usr_id)) {
       notFriendList();
       setIsLoading(false);
       setPlayOnce(false);
@@ -58,13 +58,13 @@ const FriendsHint = () => {
           {friendsHint &&
             friendsHint.map((user) => {
               for (let i = 0; i < usersData.length; i++) {
-                if (user === usersData[i]._id) {
+                if (user === usersData[i].usr_id) {
                   return (
                     <li className="user-hint" key={user}>
                       <img src={usersData[i].picture} alt="user-pic" />
                       <p>{usersData[i].pseudo}</p>
                       <FollowHandler
-                        idToFollow={usersData[i]._id}
+                        idToFollow={usersData[i].usr_id}
                         type="suggestion"
                       />
                     </li>

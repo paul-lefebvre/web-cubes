@@ -14,14 +14,14 @@ const EditDelteComment = ({ comment, postId }) => {
     e.preventDefault();
 
     if (text) {
-      dispatch(editComment(postId, comment._id, text));
+      dispatch(editComment(postId, comment.usr_id, text));
       setText("");
       setEdit(false);
     }
   };
 
   const handleDelete = () => {
-    dispatch(deleteComment(postId, comment._id));
+    dispatch(deleteComment(postId, comment.usr_id));
   };
 
   useEffect(() => {

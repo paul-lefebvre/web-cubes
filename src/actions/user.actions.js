@@ -8,10 +8,10 @@ export const UNFOLLOW_USER = "UNFOLLOW_USER";
 
 export const GET_USER_ERRORS = "GET_USER_ERRORS";
 
-export const getUser = (id) => {
+export const getUser = (uid) => {
   return (dispatch) => {
     return axios
-      .get(`${process.env.REACT_APP_API_URL}api/users/${id}`)
+      .get(`${process.env.REACT_APP_API_URL}api/users/${uid}`)
       .then((res) => {
         dispatch({ type: GET_USER, payload: res.data });
       })

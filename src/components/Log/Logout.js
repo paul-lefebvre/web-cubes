@@ -1,23 +1,22 @@
 import React from "react";
 import axios from "axios";
-import cookie from "js-cookie";
 
 const Logout = () => {
-  const removeCookie = (key) => {
+  const remove = () => {
     if (window !== "undefined") {
-      cookie.remove(key, { expires: 1 });
+      localStorage.removeItem("token");
     }
   };
 
   const logout = async () => {
     await axios({
       method: "get",
-      url: `${process.env.REACT_APP_API_URL}api/user/logout`,
+      url: `${process.env.REACT_APP_API_URL}api/users/logout`,
       withCredentials: true,
     })
-      .then(() => removeCookie("jwt"))
+      .then(() => remove())
       .catch((err) => console.log(err));
-    
+
     window.location = "/";
   };
 

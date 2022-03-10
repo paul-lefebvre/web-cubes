@@ -15,7 +15,7 @@ const CardComments = ({ post }) => {
     e.preventDefault();
 
     if (text) {
-      dispatch(addComment(post._id, userData._id, text, userData.pseudo))
+      dispatch(addComment(post.usr_id, userData.usr_id, text, userData.pseudo))
         .then(() => dispatch(getPosts()))
         .then(() => setText(""));
     }
@@ -27,11 +27,11 @@ const CardComments = ({ post }) => {
         return (
           <div
             className={
-              comment.commenterId === userData._id
+              comment.commenterId === userData.usr_id
                 ? "comment-container client"
                 : "comment-container"
             }
-            key={comment._id}
+            key={comment.usr_id}
           >
             <div className="left-part">
               <img
@@ -39,7 +39,8 @@ const CardComments = ({ post }) => {
                   !isEmpty(usersData[0]) &&
                   usersData
                     .map((user) => {
-                      if (user._id === comment.commenterId) return user.picture;
+                      if (user.usr_id === comment.commenterId)
+                        return user.picture;
                       else return null;
                     })
                     .join("")
@@ -51,7 +52,7 @@ const CardComments = ({ post }) => {
               <div className="comment-header">
                 <div className="pseudo">
                   <h3>{comment.commenterPseudo}</h3>
-                  {comment.commenterId !== userData._id && (
+                  {comment.commenterId !== userData.usr_id && (
                     <FollowHandler
                       idToFollow={comment.commenterId}
                       type={"card"}
@@ -61,12 +62,12 @@ const CardComments = ({ post }) => {
                 <span>{timestampParser(comment.timestamp)}</span>
               </div>
               <p>{comment.text}</p>
-			  <EditDelteComment comment={comment} postId={post._id}/>
+              <EditDelteComment comment={comment} postId={post.usr_id} />
             </div>
           </div>
         );
       })}
-      {userData._id && (
+      {userData.usr_id && (
         <form action="" onSubmit={handleComment} className="comment-form">
           <input
             type="text"
