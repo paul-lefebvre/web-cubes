@@ -9,8 +9,6 @@ import FriendsHint from "../components/Profil/FriendsHint";
 
 const Home = () => {
   const uid = useContext(UidContext);
- // localStorage.setItem("User.usr_id");
-  //const uid = localStorage.getItem("User.usr_id");
   
   console.log(uid);
 

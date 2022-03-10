@@ -57,7 +57,7 @@ const UpdateProfil = () => {
               </>
             )}
           </div>
-          <h4>Membre depuis le : {dateParser(userData.createdAt)}</h4>
+          <h4>Membre depuis le : {dateParser(userData.created_at)}</h4>
           <h5 onClick={() => setFollowingPopup(true)}>
             Abonnements : {userData.following ? userData.following.length : ""}
           </h5>

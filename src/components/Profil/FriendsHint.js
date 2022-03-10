@@ -16,8 +16,9 @@ const FriendsHint = () => {
       let array = [];
       usersData.map((user) => {
         if (
-          user.usr_id !== userData.usr_id &&
-          !user.followers.includes(userData.usr_id)
+          user.usr_id !== userData.usr_id 
+		  //&&
+         // !user.followers.includes(userData.usr_id)
         ) {
           return array.push(user.usr_id);
         } else {
@@ -62,7 +63,7 @@ const FriendsHint = () => {
                   return (
                     <li className="user-hint" key={user}>
                       <img src={usersData[i].picture} alt="user-pic" />
-                      <p>{usersData[i].pseudo}</p>
+                      <p>{usersData[i].firstname}</p>
                       <FollowHandler
                         idToFollow={usersData[i].usr_id}
                         type="suggestion"

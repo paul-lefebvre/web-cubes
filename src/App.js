@@ -16,7 +16,7 @@ const App = () => {
 	  
       await axios({
         method: "get",
-        url: `${process.env.REACT_APP_API_URL}api/users/me/${uid}`,
+        url: `${process.env.REACT_APP_API_URL}api/users/me`,
         withCredentials: false,
         headers: {
           authorization: `Bearer ${token}`,
