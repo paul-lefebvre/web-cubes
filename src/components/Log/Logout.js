@@ -4,7 +4,7 @@ import axios from "axios";
 const Logout = () => {
   const remove = () => {
     if (window !== "undefined") {
-      localStorage.removeItem("token");
+      localStorage.clear();
     }
   };
 
@@ -12,7 +12,7 @@ const Logout = () => {
     await axios({
       method: "get",
       url: `${process.env.REACT_APP_API_URL}api/users/logout`,
-      withCredentials: true,
+      withCredentials: false,
     })
       .then(() => remove())
       .catch((err) => console.log(err));
