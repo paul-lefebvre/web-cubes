@@ -4,7 +4,7 @@
   border: 2px solid $color-2;
   margin: 10px;
   padding: 16px;
-  border-radius: 20px;
+  border-radius: 0 30% 0 0;
   margin: 8px auto;
   position: relative;
   min-height: 100px;
@@ -246,13 +246,13 @@
           }
           span {
             transform: translateX(6px, 4px);
-			cursor: pointer;
+            cursor: pointer;
 
-			img {
-				box-shadow: none;
-				height: 15px;
-				width: 15px;
-			}
+            img {
+              box-shadow: none;
+              height: 15px;
+              width: 15px;
+            }
           }
         }
 
@@ -371,7 +371,7 @@
       }
       button {
         float: right;
-        background: $color-1;
+        background: $color-3;
         transition: 0.2s;
 
         &:hover {
