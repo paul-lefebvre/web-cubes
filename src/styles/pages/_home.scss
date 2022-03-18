@@ -4,7 +4,6 @@
   grid-template-columns: 60px 1fr 374px;
   overflow: hidden;
   margin: 58px auto 50px;
-  padding: 2% 0 0 0;
   position: relative;
 
   @media screen and(max-width: 990px) {
@@ -43,9 +42,9 @@
             background: $color-3;
             color: $color-4;
 
-            &:hover {
-              background: $color-3;
-            }
+			&:hover {
+				background: $color-2;
+			  }
           }
           li:not(.active-btn) {
             &:hover {
