@@ -13,7 +13,7 @@ const UpdateProfil = () => {
   const usersData = useSelector((state) => state.usersReducer);
   const error = useSelector((state) => state.errorReducer.userError);
   const dispatch = useDispatch();
-  const [followingPopup, setFollowingPopup] = useState(false);
+  const [followedPopup, setfollowedPopup] = useState(false);
   const [followersPopup, setFollowersPopup] = useState(false);
 
   const handleUpdate = () => {
@@ -58,29 +58,29 @@ const UpdateProfil = () => {
             )}
           </div>
           <h4>Membre depuis le : {dateParser(userData.created_at)}</h4>
-          <h5 onClick={() => setFollowingPopup(true)}>
-            Abonnements : {userData.following ? userData.following.length : ""}
+          <h5 onClick={() => setfollowedPopup(true)}>
+            Abonnements : {userData.followed ? userData.followed.length : ""}
           </h5>
           <h5 onClick={() => setFollowersPopup(true)}>
             Abonnés : {userData.followers ? userData.followers.length : ""}
           </h5>
         </div>
       </div>
-      {followingPopup && (
+      {followedPopup && (
         <div className="popup-profil-container">
           <div className="modal">
             <h3>Abonnements</h3>
-            <span className="cross" onClick={() => setFollowingPopup(false)}>
+            <span className="cross" onClick={() => setfollowedPopup(false)}>
               &#10005;
             </span>
             <ul>
               {usersData.map((user) => {
-                for (let i = 0; i < userData.following.length; i++) {
-                  if (user.usr_id === userData.following[i]) {
+                for (let i = 0; i < userData.followed.length; i++) {
+                  if (user.usr_id === userData.followed[i]) {
                     return (
                       <li key={user.usr_id}>
                         <img src={user.avatar_img} alt="user-pic" />
-                        <h4>{user.firstname}</h4>
+                        <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
                           <FollowHandler
                             followed={user.usr_id}
@@ -111,7 +111,7 @@ const UpdateProfil = () => {
                     return (
                       <li key={user.usr_id}>
                         <img src={user.avatar_img} alt="user-pic" />
-                        <h4>{user.firstname}</h4>
+                        <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
                           <FollowHandler
                             followed={user.usr_id}

@@ -39,7 +39,7 @@ const Card = ({ post }) => {
                 !isEmpty(usersData[0]) &&
                 usersData
                   .map((user) => {
-                    if (user.usr_id === post.posterId) return user.avatar_img;
+                    if (user.usr_id === post.res_id) return user.avatar_img;
                     else return null;
                   })
                   .join("")
@@ -54,23 +54,23 @@ const Card = ({ post }) => {
                   {!isEmpty(usersData[0]) &&
                     usersData
                       .map((user) => {
-                        if (user.usr_id === post.posterId)
-                          return user.firstname;
+                        if (user.usr_id === post.res_id)
+                          return user.pseudo;
                         else return null;
                       })
                       .join("")}
                 </h3>
-                {post.posterId !== userData.usr_id && (
+                {post.res_id !== userData.usr_id && (
                   <FollowHandler followed={post.posterId} type={"card"} />
                 )}
               </div>
-              <span>{dateParser(post.createdAt)}</span>
+              <span>{dateParser(post.created_at)}</span>
             </div>
-            {isUpdated === false && <p>{post.message}</p>}
+            {isUpdated === false && <p>{post.answers}</p>}
             {isUpdated && (
               <div className="update-post">
                 <textarea
-                  defaultValue={post.message}
+                  defaultValue={post.answers}
                   onChange={(e) => setTextUpdate(e.target.value)}
                 />
                 <div className="button-container">
@@ -110,7 +110,7 @@ const Card = ({ post }) => {
                   src="./img/icons/message1.svg"
                   alt="comment"
                 />
-                <span>{post.comments.length}</span>
+                {/* <span>{post.comments.length}</span> */}
               </div>
               <LikeButton post={post} />
               <img src="./img/icons/share.svg" alt="share" />

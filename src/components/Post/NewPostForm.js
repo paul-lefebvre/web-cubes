@@ -73,9 +73,9 @@ const NewPostForm = () => {
         <>
           <div className="data">
             <p>
-              <span>{userData.following ? userData.following.length : 0}</span>{" "}
+              <span>{userData.followed ? userData.followed.length : 0}</span>{" "}
               Abonnement
-              {userData.following && userData.following.length > 1 ? "s" : null}
+              {userData.followed && userData.followed.length > 1 ? "s" : null}
             </p>
             <p>
               <span>{userData.followers ? userData.followers.length : 0}</span>{" "}

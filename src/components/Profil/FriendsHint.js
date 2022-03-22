@@ -64,9 +64,7 @@ const FriendsHint = () => {
                     <li className="user-hint" key={user}>
                       <img src={usersData[i].avatar_img} alt="user-pic" />
                       <p>
-                        {usersData[i].firstname +
-                          " -> id : " +
-                          usersData[i].usr_id}
+                        {usersData[i].pseudo}
                       </p>
                       <FollowHandler
                         followed={usersData[i].usr_id}

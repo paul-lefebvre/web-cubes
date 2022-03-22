@@ -14,7 +14,7 @@ const Trends = () => {
     if (!isEmpty(posts[0])) {
       const postsArr = Object.keys(posts).map((i) => posts[i]);
       let sortedArray = postsArr.sort((a, b) => {
-        return b.likers.length - a.likers.length;
+        return b.nb_likes.length - a.nb_likes.length;
       });
       sortedArray.length = 3;
       dispatch(getTrends(sortedArray));
@@ -60,7 +60,7 @@ const Trends = () => {
                     )}
                   </div>
                   <div className="trend-content">
-                    <p>{post.message}</p>
+                    <p>{post.answers}</p>
                     <span>Lire</span>
                   </div>
                 </li>
