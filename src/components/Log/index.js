@@ -7,7 +7,7 @@ const Log = (props) => {
   const [signInModal, setSignInModal] = useState(props.signin);
 
   const handleModals = (e) => {
-    if (e.target.id === "/") {
+    if (e.target.id === "register") {
       setSignInModal(false);
       setSignUpModal(true);
     } else if (e.target.id === "login") {
@@ -22,7 +22,7 @@ const Log = (props) => {
         <ul>
           <li
             onClick={handleModals}
-            id="/"
+            id="register"
             className={signUpModal ? "active-btn" : null}
           >
             S'inscrire

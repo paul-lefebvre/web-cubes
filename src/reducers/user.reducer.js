@@ -23,9 +23,11 @@ export default function userReducer(state = initialState, action) {
         bio: action.payload,
       };
     case FOLLOW_USER:
+      console.log(state.following);
       return {
         ...state,
-        following: [action.payload.idToFollow, ...state.following],
+        following: [action.payload.followed, {...state.following}],
+        //following: [action.payload.followed],
       };
     case UNFOLLOW_USER:
       return {

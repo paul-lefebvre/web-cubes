@@ -17,7 +17,7 @@ const Trending = () => {
       <div className="main">
         <ul>
           {!isEmpty(trendList[0]) &&
-            trendList.map((post) => <Card post={post} key={post._id} />)}
+            trendList.map((post) => <Card post={post} key={post.usr_id} />)}
         </ul>
       </div>
       <div className="right-side">

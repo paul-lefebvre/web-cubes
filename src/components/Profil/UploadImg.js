@@ -10,8 +10,8 @@ const UploadImg = () => {
   const handlePicture = (e) => {
     e.preventDefault();
     const data = new FormData();
-    data.append("name", userData.pseudo);
-    data.append("userId", userData.usr_id);
+    data.append("name", userData.firstname);
+    data.append("usr_id", userData.usr_id);
     data.append("file", file);
 
     dispatch(uploadPicture(data, userData.usr_id));

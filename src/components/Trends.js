@@ -48,7 +48,7 @@ const Trends = () => {
                           usersData
                             .map((user) => {
                               if (user.usr_id === post.posterId) {
-                                return user.picture;
+                                return user.avatar_img;
                               } else {
                                 return null;
                               }

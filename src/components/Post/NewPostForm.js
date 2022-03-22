@@ -85,7 +85,7 @@ const NewPostForm = () => {
           </div>
           <NavLink exact to="/profil">
             <div className="user-info">
-              <img src={userData.picture} alt="user-img" />
+              <img src={userData.avatar_img} alt="user-img" />
             </div>
           </NavLink>
           <div className="post-form">
@@ -99,7 +99,7 @@ const NewPostForm = () => {
             {message || postPicture || video.length > 20 ? (
               <li className="card-container">
                 <div className="card-left">
-                  <img src={userData.picture} alt="user-pic" />
+                  <img src={userData.avatar_img} alt="user-pic" />
                 </div>
                 <div className="card-right">
                   <div className="card-header">

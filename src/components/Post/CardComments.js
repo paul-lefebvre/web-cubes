@@ -40,7 +40,7 @@ const CardComments = ({ post }) => {
                   usersData
                     .map((user) => {
                       if (user.usr_id === comment.commenterId)
-                        return user.picture;
+                        return user.avatar_img;
                       else return null;
                     })
                     .join("")
@@ -54,7 +54,7 @@ const CardComments = ({ post }) => {
                   <h3>{comment.commenterPseudo}</h3>
                   {comment.commenterId !== userData.usr_id && (
                     <FollowHandler
-                      idToFollow={comment.commenterId}
+                      followed={comment.commenterId}
                       type={"card"}
                     />
                   )}

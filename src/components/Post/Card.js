@@ -39,7 +39,7 @@ const Card = ({ post }) => {
                 !isEmpty(usersData[0]) &&
                 usersData
                   .map((user) => {
-                    if (user.usr_id === post.posterId) return user.picture;
+                    if (user.usr_id === post.posterId) return user.avatar_img;
                     else return null;
                   })
                   .join("")
@@ -54,13 +54,14 @@ const Card = ({ post }) => {
                   {!isEmpty(usersData[0]) &&
                     usersData
                       .map((user) => {
-                        if (user.usr_id === post.posterId) return user.pseudo;
+                        if (user.usr_id === post.posterId)
+                          return user.firstname;
                         else return null;
                       })
                       .join("")}
                 </h3>
                 {post.posterId !== userData.usr_id && (
-                  <FollowHandler idToFollow={post.posterId} type={"card"} />
+                  <FollowHandler followed={post.posterId} type={"card"} />
                 )}
               </div>
               <span>{dateParser(post.createdAt)}</span>

@@ -9,6 +9,7 @@ const SignUpForm = () => {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [controlPassword, setControlPassword] = useState("");
+  const roles = "citoyen";
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -41,6 +42,7 @@ const SignUpForm = () => {
           lastname,
           mail,
           password,
+		  roles
         },
       })
         .then((res) => {
@@ -56,7 +58,7 @@ const SignUpForm = () => {
         })
         .catch((err) => console.log(err));
     }
-    console.log(firstname, lastname, mail, password);
+    console.log(firstname, lastname, mail, password, roles);
   };
 
   return (

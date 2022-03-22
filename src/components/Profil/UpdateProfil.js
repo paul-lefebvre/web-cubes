@@ -17,7 +17,7 @@ const UpdateProfil = () => {
   const [followersPopup, setFollowersPopup] = useState(false);
 
   const handleUpdate = () => {
-    dispatch(updateBio(userData._id, bio));
+    dispatch(updateBio(userData.usr_id, bio));
     setUpdateForm(false);
   };
 
@@ -28,7 +28,7 @@ const UpdateProfil = () => {
       <div className="update-container">
         <div className="left-part">
           <h3>Photo de profil</h3>
-          <img src={userData.picture} alt="user-pic" />
+          <img src={userData.avatar_img} alt="user-pic" />
           <UploadImg />
           <p>{error.maxSize}</p>
           <p>{error.format}</p>
@@ -76,14 +76,14 @@ const UpdateProfil = () => {
             <ul>
               {usersData.map((user) => {
                 for (let i = 0; i < userData.following.length; i++) {
-                  if (user._id === userData.following[i]) {
+                  if (user.usr_id === userData.following[i]) {
                     return (
-                      <li key={user._id}>
-                        <img src={user.picture} alt="user-pic" />
-                        <h4>{user.pseudo}</h4>
+                      <li key={user.usr_id}>
+                        <img src={user.avatar_img} alt="user-pic" />
+                        <h4>{user.firstname}</h4>
                         <div className="follow-handler">
                           <FollowHandler
-                            idToFollow={user._id}
+                            followed={user.usr_id}
                             type={"suggestion"}
                           />
                         </div>
@@ -107,14 +107,14 @@ const UpdateProfil = () => {
             <ul>
               {usersData.map((user) => {
                 for (let i = 0; i < userData.followers.length; i++) {
-                  if (user._id === userData.followers[i]) {
+                  if (user.usr_id === userData.followers[i]) {
                     return (
-                      <li key={user._id}>
-                        <img src={user.picture} alt="user-pic" />
-                        <h4>{user.pseudo}</h4>
+                      <li key={user.usr_id}>
+                        <img src={user.avatar_img} alt="user-pic" />
+                        <h4>{user.firstname}</h4>
                         <div className="follow-handler">
                           <FollowHandler
-                            idToFollow={user._id}
+                            followed={user.usr_id}
                             type={"suggestion"}
                           />
                         </div>
