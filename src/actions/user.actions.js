@@ -23,14 +23,14 @@ export const uploadPicture = (data, id) => {
   console.log(data);
   return (dispatch) => {
     return axios
-	.post(`${process.env.REACT_APP_API_URL}api/users/upload`, data)
+	.post(`${process.env.REACT_APP_API_URL}api/users/${id}/upload`, data)
       .then((res) => {
         if (res.data.errors) {
           dispatch({ type: GET_USER_ERRORS, payload: res.data.errors });
         } else {
           dispatch({ type: GET_USER_ERRORS, payload: "" });
           return axios
-            .get(`${process.env.REACT_APP_API_URL}api/user/${id}`)
+            .get(`${process.env.REACT_APP_API_URL}api/users/${id}`)
             .then((res) => {
               dispatch({ type: UPLOAD_PICTURE, payload: res.data.avatar_img });
             });

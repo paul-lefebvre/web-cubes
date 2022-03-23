@@ -4,6 +4,7 @@ import SignInForm from "./SignInForm";
 
 const SignUpForm = () => {
   const [formSubmit, setFormSubmit] = useState(false);
+  const [pseudo, setPseudo] = useState("");
   const [lastname, setLastname] = useState("");
   const [firstname, setFirstname] = useState("");
   const [mail, setMail] = useState("");
@@ -14,7 +15,8 @@ const SignUpForm = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     const terms = document.getElementById("terms");
-    const firstnameError = document.querySelector(".prenom.error");
+	const pseudoError = document.querySelector(".pseudo.error");
+    const firstnameError = document.querySelector(".prenom.error"); 
     const lastnameError = document.querySelector(".nom.error");
     const emailError = document.querySelector(".email.error");
     const passwordError = document.querySelector(".password.error");
@@ -38,16 +40,18 @@ const SignUpForm = () => {
         method: "post",
         url: `${process.env.REACT_APP_API_URL}api/users/`,
         data: {
+          pseudo,
           firstname,
           lastname,
           mail,
           password,
-		  roles
+          roles,
         },
       })
         .then((res) => {
           console.log(res);
           if (res.data.errors) {
+			pseudoError.innerHTML = res.data.errors.pseudo;
             firstnameError.innerHTML = res.data.errors.firstname;
             lastnameError.innerHTML = res.data.errors.lastname;
             emailError.innerHTML = res.data.errors.mail;
@@ -58,7 +62,7 @@ const SignUpForm = () => {
         })
         .catch((err) => console.log(err));
     }
-    console.log(firstname, lastname, mail, password, roles);
+    console.log(pseudo, firstname, lastname, mail, password, roles);
   };
 
   return (
@@ -73,6 +77,17 @@ const SignUpForm = () => {
         </>
       ) : (
         <form action="" onSubmit={handleRegister} id="sign-up-form">
+          <label htmlFor="pseudo">Pseudo</label>
+          <br />
+          <input
+            type="text"
+            name="pseudo"
+            id="pseudo"
+            onChange={(e) => setPseudo(e.target.value)}
+            value={pseudo}
+          />
+          <div className="pseudo error"></div>
+          <br />
           <label htmlFor="prenom">Prénom</label>
           <br />
           <input

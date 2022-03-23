@@ -39,8 +39,15 @@ const Card = ({ post }) => {
                 !isEmpty(usersData[0]) &&
                 usersData
                   .map((user) => {
-                    if (user.usr_id === post.res_id) return user.avatar_img;
-                    else return null;
+                    for (let i = 0; i < usersData.length; i++) {
+                      if (user.usr_id === post.res_id)
+                        return `${
+                          process.env.REACT_APP_API_URL +
+                          "public/upload/images/avatar/" +
+                          usersData[i].avatar_img
+                        }`;
+                      else return null;
+                    }
                   })
                   .join("")
               }
@@ -54,8 +61,7 @@ const Card = ({ post }) => {
                   {!isEmpty(usersData[0]) &&
                     usersData
                       .map((user) => {
-                        if (user.usr_id === post.res_id)
-                          return user.pseudo;
+                        if (user.usr_id === post.res_id) return user.pseudo;
                         else return null;
                       })
                       .join("")}

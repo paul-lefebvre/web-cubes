@@ -85,7 +85,7 @@ const NewPostForm = () => {
           </div>
           <NavLink exact to="/profil">
             <div className="user-info">
-              <img src={userData.avatar_img} alt="user-img" />
+              <img src={process.env.REACT_APP_API_URL + "public/upload/images/avatar/" + userData.avatar_img} alt="user-img" />
             </div>
           </NavLink>
           <div className="post-form">
