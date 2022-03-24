@@ -72,7 +72,7 @@ const FriendsHint = () => {
                       />
                       <p>{usersData[i].pseudo}</p>
                       <FollowHandler
-                        followed={usersData[i].usr_id}
+                        abonnements={usersData[i].usr_id}
                         type="suggestion"
                       />
                     </li>

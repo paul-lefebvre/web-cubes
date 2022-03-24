@@ -73,14 +73,14 @@ const NewPostForm = () => {
         <>
           <div className="data">
             <p>
-              <span>{userData.followed ? userData.followed.length : 0}</span>{" "}
+              <span>{userData.abonnements ? userData.abonnements.length : 0}</span>{" "}
               Abonnement
-              {userData.followed && userData.followed.length > 1 ? "s" : null}
+              {userData.abonnements && userData.abonnements.length > 1 ? "s" : null}
             </p>
             <p>
-              <span>{userData.followers ? userData.followers.length : 0}</span>{" "}
+              <span>{userData.abonnes ? userData.abonnes.length : 0}</span>{" "}
               Abonné
-              {userData.followers && userData.followers.length > 1 ? "s" : null}
+              {userData.abonnes && userData.abonnes.length > 1 ? "s" : null}
             </p>
           </div>
           <NavLink exact to="/profil">

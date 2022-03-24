@@ -3,7 +3,7 @@
   grid-template-columns: 66px 1fr;
   border: 2px solid $color-2;
   margin: 10px;
-  padding: 16px;
+  padding: 16px 30px 16px 16px;
   border-radius: 0 13% 0 0;
   margin: 8px auto;
   position: relative;
@@ -194,7 +194,8 @@
         }
       }
       .comment-icon,
-      .like-container {
+      .like-container,
+	  .share-icon {
         display: flex;
         align-items: center;
 

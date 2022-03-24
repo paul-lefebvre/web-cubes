@@ -54,15 +54,15 @@ export const updateBio = (userId, bio) => {
   };
 };
 
-export const followUser = (follower_id, followed) => {
+export const followUser = (follower_id, followed_id) => {
   return (dispatch) => {
     return axios({
       method: "patch",
       url: `${process.env.REACT_APP_API_URL}api/users/follow/` + follower_id,
-      data: { followed },
+      data: { followed_id },
     })
       .then((res) => {
-        dispatch({ type: FOLLOW_USER, payload: { followed } });
+        dispatch({ type: FOLLOW_USER, payload: { followed_id } });
       })
       .catch((err) => console.log(err));
   };

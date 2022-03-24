@@ -59,10 +59,10 @@ const UpdateProfil = () => {
           </div>
           <h4>Membre depuis le : {dateParser(userData.created_at)}</h4>
           <h5 onClick={() => setfollowedPopup(true)}>
-            Abonnements : {userData.followed ? userData.followed.length : ""}
+            Abonnements : {userData.abonnements ? userData.abonnements.length : ""}
           </h5>
           <h5 onClick={() => setFollowersPopup(true)}>
-            Abonnés : {userData.followers ? userData.followers.length : ""}
+            Abonnés : {userData.abonnes ? userData.abonnes.length : ""}
           </h5>
         </div>
       </div>
@@ -75,15 +75,16 @@ const UpdateProfil = () => {
             </span>
             <ul>
               {usersData.map((user) => {
-                for (let i = 0; i < userData.followed.length; i++) {
-                  if (user.usr_id === userData.followed[i]) {
+                for (let i = 0; i < userData.abonnements.length; i++) {
+                 // if (user.usr_id === userData.abonnements[i]) {
+					if (user.usr_id === userData.abonnements[i]) {
                     return (
                       <li key={user.usr_id}>
                         <img src={process.env.REACT_APP_API_URL + "public/upload/images/avatar/" + user.avatar_img} alt="user-pic" />
                         <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
                           <FollowHandler
-                            followed={user.usr_id}
+                            abonnements={user.usr_id}
                             type={"suggestion"}
                           />
                         </div>
@@ -106,15 +107,15 @@ const UpdateProfil = () => {
             </span>
             <ul>
               {usersData.map((user) => {
-                for (let i = 0; i < userData.followers.length; i++) {
-                  if (user.usr_id === userData.followers[i]) {
+                for (let i = 0; i < userData.abonnes.length; i++) {
+                  if (user.usr_id === userData.abonnes[i]) {
                     return (
                       <li key={user.usr_id}>
                         <img src={process.env.REACT_APP_API_URL + "public/upload/images/avatar/" + user.avatar_img} alt="user-pic" />
                         <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
                           <FollowHandler
-                            followed={user.usr_id}
+                            abonnements={user.usr_id}
                             type={"suggestion"}
                           />
                         </div>

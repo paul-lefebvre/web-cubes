@@ -27,7 +27,7 @@ const CardComments = ({ post }) => {
         return (
           <div
             className={
-              comment.com_id === userData.usr_id
+              comment.id_owner === userData.usr_id
                 ? "comment-container client"
                 : "comment-container"
             }
@@ -39,7 +39,7 @@ const CardComments = ({ post }) => {
                 !isEmpty(usersData[0]) &&
                 usersData
                   .map((user) => {
-                      if (user.usr_id === post.usr_id)
+                      if (user.usr_id === comment.id_owner)
                         return `${
                           process.env.REACT_APP_API_URL +
                           "public/upload/images/avatar/" +
@@ -49,25 +49,22 @@ const CardComments = ({ post }) => {
                   })
                   .join("")
               }
-              alt="poster-pic"
+              alt="commenter-pic"
             />
             </div>
             <div className="right-part">
               <div className="comment-header">
                 <div className="pseudo">
-                  {/* <h3>{comment.id_owner}</h3> */}
 				  <h3>
-                  {!isEmpty(usersData[0]) &&
-                    usersData
-                      .map((user) => {
-                        if (user.usr_id === post.usr_id) return user.pseudo;
+                  {usersData.map((user) => {
+                        if (user.usr_id === comment.id_owner) return user.pseudo;
                         else return null;
                       })
                       .join("")}
                 </h3>
-                  {comment.com_id !== userData.usr_id && (
+                  {comment.id_owner !== userData.usr_id && (
                     <FollowHandler
-                      followed={comment.com_id}
+                      abonnements={comment.com_id}
                       type={"card"}
                     />
                   )}
