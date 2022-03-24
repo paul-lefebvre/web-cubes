@@ -39,15 +39,13 @@ const Card = ({ post }) => {
                 !isEmpty(usersData[0]) &&
                 usersData
                   .map((user) => {
-                    for (let i = 0; i < usersData.length; i++) {
-                      if (user.usr_id === post.res_id)
+                      if (user.usr_id === post.usr_id)
                         return `${
                           process.env.REACT_APP_API_URL +
                           "public/upload/images/avatar/" +
-                          usersData[i].avatar_img
+                          user.avatar_img
                         }`;
                       else return null;
-                    }
                   })
                   .join("")
               }
@@ -61,13 +59,13 @@ const Card = ({ post }) => {
                   {!isEmpty(usersData[0]) &&
                     usersData
                       .map((user) => {
-                        if (user.usr_id === post.res_id) return user.pseudo;
+                        if (user.usr_id === post.usr_id) return user.pseudo;
                         else return null;
                       })
                       .join("")}
                 </h3>
                 {post.res_id !== userData.usr_id && (
-                  <FollowHandler followed={post.posterId} type={"card"} />
+                  <FollowHandler followed={post.usr_id} type={"card"} />
                 )}
               </div>
               <span>{dateParser(post.created_at)}</span>
@@ -100,12 +98,12 @@ const Card = ({ post }) => {
                 title={post.usr_id}
               ></iframe>
             )}
-            {userData.usr_id === post.posterId && (
+            {userData.usr_id === post.usr_id && (
               <div className="button-container">
                 <div onClick={() => setIsUpdated(!isUpdated)}>
                   <img src="./img/icons/edit.svg" alt="edit" />
                 </div>
-                <DeleteCard id={post.usr_id} />
+                <DeleteCard id={post.res_id} />
               </div>
             )}
 

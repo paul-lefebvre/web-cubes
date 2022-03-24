@@ -26,8 +26,8 @@ export default function userReducer(state = initialState, action) {
       console.log(state.followed);
       return {
         ...state,
-       // followed: [action.payload.followed, {...state.followed} ],
-        followed: [action.payload.followed],
+        followed: [action.payload.followed, ...state.followed ],
+        //followed: [action.payload.followed],
       };
     case UNFOLLOW_USER:
       return {

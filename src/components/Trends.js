@@ -41,27 +41,24 @@ const Trends = () => {
                         title={post.usr_id}
                       ></iframe>
                     )}
-                    {isEmpty(post.picture) && isEmpty(post.video) && (
+                     {isEmpty(post.picture) && isEmpty(post.video) && (
                       <img
                         src={
                           !isEmpty(usersData[0]) &&
-                          usersData
-                            .map((user) => {
-                              for (let i = 0; i < usersData.length; i++) {
-                                if (user.usr_id === post.res_id)
+                          usersData.map((user) => {                              
+                                if (user.usr_id === post.usr_id)
                                   return `${
                                     process.env.REACT_APP_API_URL +
                                     "public/upload/images/avatar/" +
-                                    usersData[i].avatar_img
+                                    user.avatar_img
                                   }`;
-                                else return null;
-                              }
+                                else return null;                              
                             })
                             .join("")
                         }
                         alt="profil-pic"
                       />
-                    )}
+                    )} 					
                   </div>
                   <div className="trend-content">
                     <p>{post.answers}</p>

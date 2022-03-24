@@ -7,8 +7,7 @@ const UploadImg = () => {
   const dispatch = useDispatch();
   const userData = useSelector((state) => state.userReducer);
 
-  const handlePicture = (e) => {
-    e.preventDefault();
+  const handlePicture = () => {
     const data = new FormData();
     data.append("name", userData.firstname);
     data.append("usr_id", userData.usr_id);
@@ -28,7 +27,7 @@ const UploadImg = () => {
         onChange={(e) => setFile(e.target.files[0])}
       />
       <br />
-      <input type="submit" value="Envoyer" />
+      <input type="submit" value="Envoyer"/>
     </form>
   );
 };
