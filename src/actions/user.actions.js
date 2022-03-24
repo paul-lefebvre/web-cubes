@@ -54,11 +54,11 @@ export const updateBio = (userId, bio) => {
   };
 };
 
-export const followUser = (followerId, followed) => {
+export const followUser = (follower_id, followed) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/users/follow/` + followerId,
+      url: `${process.env.REACT_APP_API_URL}api/users/follow/` + follower_id,
       data: { followed },
     })
       .then((res) => {
@@ -68,11 +68,11 @@ export const followUser = (followerId, followed) => {
   };
 };
 
-export const unfollowUser = (followerId, idToUnfollow) => {
+export const unfollowUser = (follower_id, idToUnfollow) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/users/unfollow/` + followerId,
+      url: `${process.env.REACT_APP_API_URL}api/users/unfollow/` + follower_id,
       data: { idToUnfollow },
     })
       .then((res) => {

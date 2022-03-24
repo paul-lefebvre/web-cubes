@@ -79,7 +79,7 @@ const UpdateProfil = () => {
                   if (user.usr_id === userData.followed[i]) {
                     return (
                       <li key={user.usr_id}>
-                        <img src={user.avatar_img} alt="user-pic" />
+                        <img src={process.env.REACT_APP_API_URL + "public/upload/images/avatar/" + user.avatar_img} alt="user-pic" />
                         <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
                           <FollowHandler
@@ -110,7 +110,7 @@ const UpdateProfil = () => {
                   if (user.usr_id === userData.followers[i]) {
                     return (
                       <li key={user.usr_id}>
-                        <img src={user.avatar_img} alt="user-pic" />
+                        <img src={process.env.REACT_APP_API_URL + "public/upload/images/avatar/" + user.avatar_img} alt="user-pic" />
                         <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
                           <FollowHandler

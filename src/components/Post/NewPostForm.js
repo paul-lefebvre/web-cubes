@@ -18,7 +18,7 @@ const NewPostForm = () => {
     if (message || postPicture || video) {
       const data = new FormData();
       data.append("usr_id", userData.usr_id);
-      data.append("message", message);
+      data.append("answers", message);
       if (file) data.append("file", file);
       data.append("video", video);
 
@@ -99,7 +99,7 @@ const NewPostForm = () => {
             {message || postPicture || video.length > 20 ? (
               <li className="card-container">
                 <div className="card-left">
-                  <img src={userData.avatar_img} alt="user-pic" />
+                  <img src={process.env.REACT_APP_API_URL + "public/upload/images/avatar/" + userData.avatar_img} alt="user-pic" />
                 </div>
                 <div className="card-right">
                   <div className="card-header">
