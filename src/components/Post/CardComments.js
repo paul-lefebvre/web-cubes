@@ -15,7 +15,7 @@ const CardComments = ({ post }) => {
     e.preventDefault();
 
     if (text) {
-      dispatch(addComment(post.usr_id, userData.usr_id, text, userData.firstname))
+      dispatch(addComment(post.usr_id, userData.usr_id, text, userData.pseudo))
         .then(() => dispatch(getPosts()))
         .then(() => setText(""));
     }
@@ -27,42 +27,55 @@ const CardComments = ({ post }) => {
         return (
           <div
             className={
-              comment.commenterId === userData.usr_id
+              comment.com_id === userData.usr_id
                 ? "comment-container client"
                 : "comment-container"
             }
-            key={comment.usr_id}
+            key={comment.id_owner}
           >
             <div className="left-part">
-              <img
-                src={
-                  !isEmpty(usersData[0]) &&
-                  usersData
-                    .map((user) => {
-                      if (user.usr_id === comment.commenterId)
-                        return user.avatar_img;
+			<img
+              src={
+                !isEmpty(usersData[0]) &&
+                usersData
+                  .map((user) => {
+                      if (user.usr_id === post.usr_id)
+                        return `${
+                          process.env.REACT_APP_API_URL +
+                          "public/upload/images/avatar/" +
+                          user.avatar_img
+                        }`;
                       else return null;
-                    })
-                    .join("")
-                }
-                alt="commenter-pic"
-              />
+                  })
+                  .join("")
+              }
+              alt="poster-pic"
+            />
             </div>
             <div className="right-part">
               <div className="comment-header">
                 <div className="pseudo">
-                  <h3>{comment.commenterPseudo}</h3>
-                  {comment.commenterId !== userData.usr_id && (
+                  {/* <h3>{comment.id_owner}</h3> */}
+				  <h3>
+                  {!isEmpty(usersData[0]) &&
+                    usersData
+                      .map((user) => {
+                        if (user.usr_id === post.usr_id) return user.pseudo;
+                        else return null;
+                      })
+                      .join("")}
+                </h3>
+                  {comment.com_id !== userData.usr_id && (
                     <FollowHandler
-                      followed={comment.commenterId}
+                      followed={comment.com_id}
                       type={"card"}
                     />
                   )}
                 </div>
-                <span>{timestampParser(comment.timestamp)}</span>
+                <span>{timestampParser(comment.created_at)}</span>
               </div>
-              <p>{comment.text}</p>
-              <EditDelteComment comment={comment} postId={post.usr_id} />
+              <p>{comment.answers}</p>
+              <EditDelteComment comment={comment} res_id={post.usr_id} />
             </div>
           </div>
         );

@@ -102,43 +102,43 @@ export const deletePost = (postId) => {
   };
 };
 
-export const addComment = (postId, commenterId, text, commenterPseudo) => {
+export const addComment = (res_id, com_id, answers, id_owner) => {
   return (dispatch) => {
     return axios({
-      method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/post/comment-post/${postId}`,
-      data: { commenterId, text, commenterPseudo },
+      method: "post",
+      url: `${process.env.REACT_APP_API_URL}api/comments/`,
+      data: { com_id, answers, id_owner },
     })
       .then((res) => {
-        dispatch({ type: ADD_COMMENT, payload: { postId } });
+        dispatch({ type: ADD_COMMENT, payload: { res_id } });
       })
       .catch((err) => console.log(err));
   };
 };
 
-export const editComment = (postId, commentId, text) => {
+export const editComment = (res_id, com_id, answers) => {
   return (dispatch) => {
     return axios({
-      method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/post/edit-comment-post/${postId}`,
-      data: { commentId, text },
+      method: "put",
+      url: `${process.env.REACT_APP_API_URL}api/comments/${res_id}`,
+      data: { com_id, answers },
     })
       .then((res) => {
-        dispatch({ type: EDIT_COMMENT, payload: { postId, commentId, text } });
+        dispatch({ type: EDIT_COMMENT, payload: { res_id, com_id, answers } });
       })
       .catch((err) => console.log(err));
   };
 };
 
-export const deleteComment = (postId, commentId) => {
+export const deleteComment = (res_id, com_id) => {
   return (dispatch) => {
     return axios({
-      method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/post/delete-comment-post/${postId}`,
-      data: { commentId },
+      method: "delete",
+      url: `${process.env.REACT_APP_API_URL}api/comments/${res_id}`,
+      data: { com_id },
     })
       .then((res) => {
-        dispatch({ type: DELETE_COMMENT, payload: { postId, commentId } });
+        dispatch({ type: DELETE_COMMENT, payload: { res_id, com_id } });
       })
       .catch((err) => console.log(err));
   };
