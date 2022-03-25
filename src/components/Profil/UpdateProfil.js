@@ -76,15 +76,14 @@ const UpdateProfil = () => {
             <ul>
               {usersData.map((user) => {
                 for (let i = 0; i < userData.abonnements.length; i++) {
-                 // if (user.usr_id === userData.abonnements[i]) {
-					if (user.usr_id === userData.abonnements[i]) {
+                 if (user.usr_id === userData.abonnements[i].followed_id) {
                     return (
                       <li key={user.usr_id}>
                         <img src={process.env.REACT_APP_API_URL + "public/upload/images/avatar/" + user.avatar_img} alt="user-pic" />
                         <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
                           <FollowHandler
-                            abonnements={user.usr_id}
+                            followed_id={user.usr_id}
                             type={"suggestion"}
                           />
                         </div>
@@ -108,14 +107,14 @@ const UpdateProfil = () => {
             <ul>
               {usersData.map((user) => {
                 for (let i = 0; i < userData.abonnes.length; i++) {
-                  if (user.usr_id === userData.abonnes[i]) {
+                  if (user.usr_id === userData.abonnes[i].follower_id) {
                     return (
                       <li key={user.usr_id}>
                         <img src={process.env.REACT_APP_API_URL + "public/upload/images/avatar/" + user.avatar_img} alt="user-pic" />
                         <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
                           <FollowHandler
-                            abonnements={user.usr_id}
+                            followed_id={user.usr_id}
                             type={"suggestion"}
                           />
                         </div>

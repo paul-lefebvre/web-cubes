@@ -14,7 +14,7 @@ const Trends = () => {
     if (!isEmpty(posts[0])) {
       const postsArr = Object.keys(posts).map((i) => posts[i]);
       let sortedArray = postsArr.sort((a, b) => {
-        return b.nb_likes.length - a.nb_likes.length;
+        return b.nb_likes - a.nb_likes;
       });
       sortedArray.length = 3;
       dispatch(getTrends(sortedArray));
