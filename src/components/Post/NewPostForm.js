@@ -73,9 +73,13 @@ const NewPostForm = () => {
         <>
           <div className="data">
             <p>
-              <span>{userData.abonnements ? userData.abonnements.length : 0}</span>{" "}
+              <span>
+                {userData.abonnements ? userData.abonnements.length : 0}
+              </span>{" "}
               Abonnement
-              {userData.abonnements && userData.abonnements.length > 1 ? "s" : null}
+              {userData.abonnements && userData.abonnements.length > 1
+                ? "s"
+                : null}
             </p>
             <p>
               <span>{userData.abonnes ? userData.abonnes.length : 0}</span>{" "}
@@ -85,7 +89,14 @@ const NewPostForm = () => {
           </div>
           <NavLink exact to="/profil">
             <div className="user-info">
-              <img src={process.env.REACT_APP_API_URL + "public/upload/images/avatar/" + userData.avatar_img} alt="user-img" />
+              <img
+                src={
+                  process.env.REACT_APP_API_URL +
+                  "public/upload/images/avatar/" +
+                  userData.avatar_img
+                }
+                alt="user-img"
+              />
             </div>
           </NavLink>
           <div className="post-form">
@@ -99,7 +110,14 @@ const NewPostForm = () => {
             {message || postPicture || video.length > 20 ? (
               <li className="card-container">
                 <div className="card-left">
-                  <img src={process.env.REACT_APP_API_URL + "public/upload/images/avatar/" + userData.avatar_img} alt="user-pic" />
+                  <img
+                    src={
+                      process.env.REACT_APP_API_URL +
+                      "public/upload/images/avatar/" +
+                      userData.avatar_img
+                    }
+                    alt="user-pic"
+                  />
                 </div>
                 <div className="card-right">
                   <div className="card-header">
@@ -129,19 +147,30 @@ const NewPostForm = () => {
                 {isEmpty(video) && (
                   <>
                     <img src="./img/icons/picture.svg" alt="img" />
-                    <input
-                      type="file"
-                      id="file-upload"
-                      name="file"
-                      accept=".jpg, .jpeg, .png"
-                      onChange={(e) => handlePicture(e)}
-                    />
+                    <label
+                      style={{
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+                        width: "180px",
+                      }}
+                    >
+                      Ajouter une image
+                      <input
+                        type="file"
+                        id="file-upload"
+                        name="file"
+                        accept=".jpg, .jpeg, .png"
+                        onChange={(e) => handlePicture(e)}
+                      />
+                    </label>
                   </>
                 )}
                 {video && (
                   <button onClick={() => setVideo("")}>Supprimer vidéo</button>
                 )}
               </div>
+
               {!isEmpty(error.format) && <p>{error.format}</p>}
               {!isEmpty(error.maxSize) && <p>{error.maxSize}</p>}
               <div className="btn-send">
