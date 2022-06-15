@@ -21,7 +21,8 @@ const Logout = () => {
   };
 
   return (
-    <li onClick={logout}>
+    <li onClick={logout} style={{display:"flex"}}>
+		<h5 style={{color:"white", marginRight:"10px"}}>Se déconnecter</h5>
       <img src="./img/icons/logout.svg" alt="logout" />
     </li>
   );

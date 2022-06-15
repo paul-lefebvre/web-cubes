@@ -15,7 +15,7 @@ const Navbar = () => {
           <NavLink exact to="/">
             <div className="logo">
               <img src="./img/l4c.png" alt="icon" />
-              <h3>Links For Citizens</h3>
+              <h3 style={{color:"white"}}>Ressources Citoyennes</h3>
             </div>
           </NavLink>
         </div>
@@ -24,7 +24,7 @@ const Navbar = () => {
             <li></li>
             <li className="welcome">
               <NavLink exact to="/profil">
-                <h5>Bienvenue {userData.firstname}</h5>
+                <h5 style={{color:"white", marginRight:"130px"}}>Bienvenue {userData.firstname}</h5>
               </NavLink>
             </li>
             <Logout />
@@ -33,7 +33,8 @@ const Navbar = () => {
           <ul>
             <li></li>
             <li>
-              <NavLink exact to="/profil">
+              <NavLink style={{display:"flex"}} exact to="/profil">
+				<h5 style={{color:"white", marginRight:"10px"}}>Se connecter</h5>
                 <img src="./img/icons/login.svg" alt="login" />
               </NavLink>
             </li>
