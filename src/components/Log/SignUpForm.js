@@ -78,7 +78,7 @@ const SignUpForm = () => {
       if (lastnameLength === 0) {
         errLastnameMsg = "Renseignez un Nom !";
       } else if (!minLengthLastname) {
-        errLastnameMsg = "Votre nom doit faire au moins 2 caractère";
+        errLastnameMsg = "Votre Nom doit faire au moins 2 caractère";
       } else {
         errLastnameMsg = "";
       }
@@ -161,16 +161,49 @@ const SignUpForm = () => {
     );
     const termsError = document.querySelector(".terms.error");
 
+    const minLengthRegExp = /.{3,}/;
+    const minLengthPseudo = minLengthRegExp.test(pseudo);
+    const minLengthFirstname = minLengthRegExp.test(firstname);
+    const minLengthRegExpLastname = /.{2,}/;
+    const minLengthLastname = minLengthRegExpLastname.test(lastname);
+    const regex =
+      /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+    const emailValide = regex.test(mail);
+
     passwordConfirmError.innerHTML = "";
     termsError.innerHTML = "";
+    pseudoError.innerHTML = "";
+    firstnameError.innerHTML = "";
+    lastnameError.innerHTML = "";
+    emailError.innerHTML = "";
 
-    if (password !== controlPassword || !terms.checked) {
+    if (
+      pseudo !== minLengthPseudo ||
+      firstname !== minLengthFirstname ||
+      lastname !== minLengthLastname ||
+      password !== controlPassword ||
+      mail !== emailValide ||
+      !terms.checked
+    ) {
+      if (pseudo !== minLengthPseudo) {
+        pseudoError.innerHTML = "Le Pseudo n'est pas correct";
+      }
+      if (firstname !== minLengthFirstname) {
+        firstnameError.innerHTML = "Le Prénom n'est pas correct";
+      }
+      if (lastname !== minLengthLastname) {
+        lastnameError.innerHTML = "Le Nom n'est pas correct";
+      }
+      if (mail !== emailValide) {
+        emailError.innerHTML = "L'email n'est pas correct !!";
+      }
       if (password !== controlPassword)
         passwordConfirmError.innerHTML =
           "Les mots de passe ne correspondent pas";
 
-      if (!terms.checked)
+      if (!terms.checked) {
         termsError.innerHTML = "Veuillez valider les conditions générales";
+      }
     } else {
       await axios({
         method: "post",
