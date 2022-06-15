@@ -10,13 +10,53 @@ const SignUpForm = () => {
   const [mail, setMail] = useState("");
   const [password, setPassword] = useState("");
   const [controlPassword, setControlPassword] = useState("");
+  const [passwordError, setPasswordErr] = useState("");
   const roles = "citoyen";
+
+  const handleValidation = (evnt) => {
+    const passwordInputValue = evnt.target.value.trim();
+    const passwordInputFieldName = evnt.target.name;
+
+    //for password
+    if (passwordInputFieldName === "password") {
+      const uppercaseRegExp = /(?=.*?[A-Z])/;
+      const lowercaseRegExp = /(?=.*?[a-z])/;
+      const digitsRegExp = /(?=.*?[0-9])/;
+      const specialCharRegExp = /(?=.*?[#?!@$%^&*-])/;
+      const minLengthRegExp = /.{8,}/;
+
+      const passwordLength = passwordInputValue.length;
+      const uppercasePassword = uppercaseRegExp.test(passwordInputValue);
+      const lowercasePassword = lowercaseRegExp.test(passwordInputValue);
+      const digitsPassword = digitsRegExp.test(passwordInputValue);
+      const specialCharPassword = specialCharRegExp.test(passwordInputValue);
+      const minLengthPassword = minLengthRegExp.test(passwordInputValue);
+
+      let errMsg = "";
+      if (passwordLength === 0) {
+        errMsg = "Le mot de passe est vide";
+      } else if (!uppercasePassword) {
+        errMsg = "Il faut au moins une Majuscule";
+      } else if (!lowercasePassword) {
+        errMsg = "Il faut au moins une minuscule";
+      } else if (!digitsPassword) {
+        errMsg = "Il faut un chiffre";
+      } else if (!specialCharPassword) {
+        errMsg = "Il faut au moins un caractère spécial";
+      } else if (!minLengthPassword) {
+        errMsg = "Il faut 8 caractères minimum";
+      } else {
+        errMsg = "";
+      }
+      setPasswordErr(errMsg);
+    }
+  };
 
   const handleRegister = async (e) => {
     e.preventDefault();
     const terms = document.getElementById("terms");
-	const pseudoError = document.querySelector(".pseudo.error");
-    const firstnameError = document.querySelector(".prenom.error"); 
+    const pseudoError = document.querySelector(".pseudo.error");
+    const firstnameError = document.querySelector(".prenom.error");
     const lastnameError = document.querySelector(".nom.error");
     const emailError = document.querySelector(".email.error");
     const passwordError = document.querySelector(".password.error");
@@ -51,7 +91,7 @@ const SignUpForm = () => {
         .then((res) => {
           console.log(res);
           if (res.data.errors) {
-			pseudoError.innerHTML = res.data.errors.pseudo;
+            pseudoError.innerHTML = res.data.errors.pseudo;
             firstnameError.innerHTML = res.data.errors.firstname;
             lastnameError.innerHTML = res.data.errors.lastname;
             emailError.innerHTML = res.data.errors.mail;
@@ -128,17 +168,20 @@ const SignUpForm = () => {
             name="password"
             id="password"
             onChange={(e) => setPassword(e.target.value)}
+            onKeyUp={handleValidation}
             value={password}
           />
+          <p className="text-danger">{passwordError}</p>
           <div className="password error"></div>
           <br />
-          <label htmlFor="password-conf">Confirmer mot de passe</label>
+          <label htmlFor="password-conf">Confirmer le mot de passe</label>
           <br />
           <input
             type="password"
-            name="password"
+            name="confirmPassword"
             id="password-conf"
             onChange={(e) => setControlPassword(e.target.value)}
+            onKeyUp={handleValidation}
             value={controlPassword}
           />
           <div className="password-confirm error"></div>
