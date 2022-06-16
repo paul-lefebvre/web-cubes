@@ -39,13 +39,13 @@ const Card = ({ post }) => {
                 !isEmpty(usersData[0]) &&
                 usersData
                   .map((user) => {
-                      if (user.usr_id === post.usr_id)
-                        return `${
-                          process.env.REACT_APP_API_URL +
-                          "public/upload/images/avatar/" +
-                          user.avatar_img
-                        }`;
-                      else return null;
+                    if (user.usr_id === post.usr_id)
+                      return `${
+                        process.env.REACT_APP_API_URL +
+                        "public/upload/images/avatar/" +
+                        user.avatar_img
+                      }`;
+                    else return null;
                   })
                   .join("")
               }
@@ -55,15 +55,15 @@ const Card = ({ post }) => {
           <div className="card-right">
             <div className="card-header">
               <div className="pseudo">
-                <h3>
-                  {!isEmpty(usersData[0]) &&
-                    usersData
-                      .map((user) => {
-                        if (user.usr_id === post.usr_id) return user.pseudo;
-                        else return null;
-                      })
-                      .join("")}
-                </h3>
+                  <h3>
+                    {!isEmpty(usersData[0]) &&
+                      usersData
+                        .map((user) => {
+                          if (user.usr_id === post.usr_id) return user.pseudo;
+                          else return null;
+                        })
+                        .join("")}
+                  </h3>
                 {post.res_id !== userData.usr_id && (
                   <FollowHandler followed={post.usr_id} type={"card"} />
                 )}
@@ -114,13 +114,13 @@ const Card = ({ post }) => {
                   src="./img/icons/message1.svg"
                   alt="comment"
                 />
-                 <span>{post.comments.length}</span> 
+                <span>{post.comments.length}</span>
               </div>
               <LikeButton post={post} />
-			  <div className="share-icon">
-			  <img src="./img/icons/share.svg" alt="share" />
-			  <span>{post.nb_shares}</span> 
-			  </div>			  
+              <div className="share-icon">
+                <img src="./img/icons/share.svg" alt="share" />
+                <span>{post.nb_shares}</span>
+              </div>
             </div>
             {showComments && <CardComments post={post} />}
           </div>

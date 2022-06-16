@@ -8,8 +8,6 @@ import FriendsHint from "../components/Profil/FriendsHint";
 
 const Home = () => {
   const uid = useContext(UidContext);
-  
-  console.log(uid);
 
   return (
     <div className="home">
