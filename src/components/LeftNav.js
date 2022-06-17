@@ -14,6 +14,10 @@ const LeftNav = () => {
             <img src="./img/icons/trending.png" alt="trending" style={{width:"35px", marginTop:"5px", marginLeft:"5px"}} />
           </NavLink>
           <br />
+		  <NavLink to="/perso" exact activeClassName="active-left-nav">
+            <img src="./img/icons/life.png" alt="life" style={{width:"45px"}} />
+          </NavLink>
+          <br />
           <NavLink to="/profil" exact activeClassName="active-left-nav">
             <img src="./img/icons/user.svg" alt="user" />
           </NavLink>
