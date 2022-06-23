@@ -42,7 +42,7 @@ const LeftNav = () => {
               closeOnDocumentClick
             >
               <div>
-                Connectez-vous pour voir les petites bio de tout le monde !
+                Connectez-vous pour afficher les petites bio de tout le monde !
               </div>
             </Popup>
           )}
