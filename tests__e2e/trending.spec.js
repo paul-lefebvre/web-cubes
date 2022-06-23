@@ -7,21 +7,21 @@ test.describe("basic test", async () => {
     await page.waitForSelector("#root");
   });
   test("is navbar loaded", async ({ page }) => {
-    await page.goto("http://localhost:3006");
+    await page.goto("http://localhost:3006/trending");
 
     const navbar = await page.$$("nav div.nav-container");
     expect(navbar).toBeTruthy();
   });
 
   test("is leftnav loaded", async ({ page }) => {
-    await page.goto("http://localhost:3006");
+    await page.goto("http://localhost:3006/trending");
 
     const leftnav = await page.$$("div div.home div.left-nav-container");
     expect(leftnav).toBeTruthy();
   });
 
   test("are the trends visible", async ({ page }) => {
-    await page.goto("http://localhost:3006");
+    await page.goto("http://localhost:3006/trending");
 
     const trends = await page.$$(
       "div.home div.left-nav-container div.main div.right-side div.wrapper div.trending-container"
@@ -30,7 +30,7 @@ test.describe("basic test", async () => {
   });
 
   test("are the suggestions visible", async ({ page }) => {
-    await page.goto("http://localhost:3006");
+    await page.goto("http://localhost:3006/trending");
 
     const trends = await page.$$(
       "div.home div.right-side div.right-side-container div.wrapper div.trending-container div.get-friends-container"
@@ -39,9 +39,9 @@ test.describe("basic test", async () => {
   });
 
   test("are the cards visible", async ({ page }) => {
-    await page.goto("http://localhost:3006");
+    await page.goto("http://localhost:3006/trending");
 
-    const cards = await page.$$("div.home div.main div.thread-container ul");
+    const cards = await page.$$("div.main ul");
     expect(cards).toBeTruthy();
   });
 });
