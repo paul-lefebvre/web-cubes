@@ -178,11 +178,11 @@ const SignUpForm = () => {
     emailError.innerHTML = "";
 
     if (
-      pseudo !== minLengthPseudo ||
-      firstname !== minLengthFirstname ||
-      lastname !== minLengthLastname ||
-      password !== controlPassword ||
-      mail !== emailValide ||
+    //   pseudo !== minLengthPseudo ||
+    //   firstname !== minLengthFirstname ||
+    //   lastname !== minLengthLastname ||
+       password !== controlPassword ||
+    //   mail !== emailValide ||
       !terms.checked
     ) {
       if (pseudo !== minLengthPseudo) {
