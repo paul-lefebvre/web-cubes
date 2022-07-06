@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePost } from "../../actions/post.actions";
 import FollowHandler from "../Profil/FollowHandler";
@@ -6,6 +6,8 @@ import { dateParser, isEmpty } from "../Utils";
 import CardComments from "./CardComments";
 import DeleteCard from "./DeleteCard";
 import LikeButton from "./LikeButton";
+import Popup from "reactjs-popup";
+import { UidContext } from "../AppContext";
 
 const Card = ({ post }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,6 +17,7 @@ const Card = ({ post }) => {
   const usersData = useSelector((state) => state.usersReducer);
   const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
+  const uid = useContext(UidContext);
 
   const updateItem = () => {
     if (textUpdate) {
@@ -110,11 +113,25 @@ const Card = ({ post }) => {
 
             <div className="card-footer">
               <div className="comment-icon">
-                <img
-                  onClick={() => setShowComments(!showComments)}
-                  src="./img/icons/message1.svg"
-                  alt="comment"
-                />
+                {uid === null && (
+                  <Popup
+                    trigger={
+                      <img src="./img/icons/message1.svg" alt="comment" />
+                    }
+                    position={["bottom center", "bottom right", "bottom left"]}
+                    closeOnDocumentClick
+                  >
+                    <div>Connectez-vous pour ajouter un commentaire</div>
+                  </Popup>
+                )}
+                {uid && (
+                  <img
+                    onClick={() => setShowComments(!showComments)}
+                    src="./img/icons/message1.svg"
+                    alt="comment"
+                  />
+                )}
+
                 <span>{post.comments.length}</span>
               </div>
               <LikeButton post={post} />
