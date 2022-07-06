@@ -17,20 +17,20 @@ export default function postReducer(state = initialState, action) {
       return action.payload;
     case LIKE_POST:
       return state.map((post) => {
-        if (post.usr_id === action.payload.postId) {
+        if (post.usr_id === action.payload.res_id) {
           return {
             ...post,
-            likers: [action.payload.userId, ...post.likers],
+            likers: [action.payload.usr_id, ...post.likers],
           };
         }
         return post;
       });
     case UNLIKE_POST:
       return state.map((post) => {
-        if (post.usr_id === action.payload.postId) {
+        if (post.usr_id === action.payload.res_Id) {
           return {
             ...post,
-            likers: post.likers.filter((id) => id !== action.payload.userId),
+            likers: post.likers.filter((id) => id !== action.payload.usr_id),
           };
         }
         return post;
@@ -47,10 +47,12 @@ export default function postReducer(state = initialState, action) {
     case DELETE_POST:
       return state.filter((post) => post.usr_id !== action.payload.res_id);
     case ADD_COMMENT:
-      return state.filter((post) => post.usr_id !== action.payload.res_Id);
-    case EDIT_COMMENT:
+      return state.filter((post) => post.usr_id !== action.payload.res_id);
+	  case DELETE_COMMENT:
+		return state.filter((comment) => comment.com_id !== action.payload.com_id);
+	  case EDIT_COMMENT:
       return state.map((post) => {
-        if (post.usr_id === action.payload.postId) {
+        if (post.usr_id === action.payload.res_Id) {
           return {
             ...post,
             comments: post.comments.map((comment) => {
@@ -68,18 +70,7 @@ export default function postReducer(state = initialState, action) {
           return post;
         }
       });
-    case DELETE_COMMENT:
-      return state.map((post) => {
-        if (post.usr_id === action.payload.postId) {
-          return {
-            ...post,
-            comments: post.comments.filter(
-              (comment) => comment.usr_id !== action.payload.commentId
-            ),
-          };
-        } else return post;
-      });
-    default:
-      return state;
+     default:
+       return state;
   }
 }

@@ -36,7 +36,7 @@ const CardComments = ({ post }) => {
                 ? "comment-container client"
                 : "comment-container"
             }
-            key={comment.id_owner}
+            key={comment.com_id}
           >
             <div className="left-part">
               <img
@@ -70,7 +70,10 @@ const CardComments = ({ post }) => {
                       .join("")}
                   </h3>
                   {comment.id_owner !== userData.usr_id && (
-                    <FollowHandler abonnements={comment.id_owner} type={"card"} />
+                    <FollowHandler
+                      idToFollow={comment.id_owner}
+                      type={"card"}
+                    />
                   )}
                 </div>
                 <span>{timestampParser(comment.created_at)}</span>

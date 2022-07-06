@@ -64,8 +64,8 @@ const Card = ({ post }) => {
                       })
                       .join("")}
                 </h3>
-                {post.res_id !== userData.usr_id && (
-                  <FollowHandler followed={post.usr_id} type={"card"} />
+                {post.usr_id !== userData.usr_id && (
+                  <FollowHandler idToFollow={post.usr_id} type={"card"} />
                 )}
               </div>
               <span>{dateParser(post.created_at)}</span>

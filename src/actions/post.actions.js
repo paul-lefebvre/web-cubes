@@ -33,6 +33,24 @@ export const getPosts = (num) => {
   };
 };
 
+// export const addPost = (data) => {
+//   return (dispatch) => {
+//     return axios
+//       .post(`${process.env.REACT_APP_API_URL}api/ressources/`, {
+//         cat_id: data.get("catego_id"),
+//         usr_id: data.get("usr_id"),
+//         answers: data.get("answers"),
+//       })
+//       .then((res) => {
+//         if (res.data.errors) {
+//           dispatch({ type: GET_POST_ERRORS, payload: res.data.errors });
+//         } else {
+//           dispatch({ type: GET_POST_ERRORS, payload: "" });
+//         }
+//       });
+//   };
+// };
+
 export const addPost = (data) => {
   return (dispatch) => {
     return axios
@@ -41,6 +59,12 @@ export const addPost = (data) => {
         usr_id: data.get("usr_id"),
         answers: data.get("answers"),
       })
+
+    //   .then((res) => {
+    //     return axios.post(`${process.env.REACT_APP_API_URL}api/ressources/`, {
+    //       media: data.get("file"),
+    //     });
+    //   })
       .then((res) => {
         if (res.data.errors) {
           dispatch({ type: GET_POST_ERRORS, payload: res.data.errors });
@@ -110,7 +134,7 @@ export const addComment = (res_id, data) => {
   return (dispatch) => {
     return axios
       .post(`${process.env.REACT_APP_API_URL}api/comments/`, {
-		id_owner: data.get("id_owner"),
+        id_owner: data.get("id_owner"),
         res_id: data.get("res_id"),
         answers: data.get("answers"),
       })
@@ -135,15 +159,14 @@ export const editComment = (res_id, com_id, answers) => {
   };
 };
 
-export const deleteComment = (res_id, com_id) => {
+export const deleteComment = (com_id) => {
   return (dispatch) => {
     return axios({
       method: "delete",
-      url: `${process.env.REACT_APP_API_URL}api/comments/${res_id}`,
-      data: { com_id },
+      url: `${process.env.REACT_APP_API_URL}api/comments/${com_id}`,
     })
       .then((res) => {
-        dispatch({ type: DELETE_COMMENT, payload: { res_id, com_id } });
+        dispatch({ type: DELETE_COMMENT, payload: {com_id } });
       })
       .catch((err) => console.log(err));
   };

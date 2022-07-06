@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { addPost, getPosts } from "../../actions/post.actions";
 import { isEmpty, timestampParser } from "../Utils";
-import axios from "axios";
 import Select from "react-select";
 
 const NewPostForm = () => {
@@ -26,8 +25,13 @@ const NewPostForm = () => {
       if (file) data.append("file", file);
       data.append("video", video);
 
+	//   const media = new FormData();
+	//   media.append("file", file);
+	//   media.append("res_id", res_id)
+
       await dispatch(addPost(data));
       dispatch(getPosts());
+	  //await dispatch(addMedia(media))
       cancelPost();
     } else {
       alert("Veuillez entrer un message");
@@ -47,27 +51,6 @@ const NewPostForm = () => {
     setFile("");
 	setCategory("");
   };
-
-
-	// function getCatListe() {
-	// 	const options = [] ;
-	// 	axios.get(`${process.env.REACT_APP_API_URL}api/categories`).then(function (response) {
-
-	// 		let catliste = response.data ;
-			
-	// 		catliste.forEach((cat) => {
-	// 			options.push({
-	// 				'label': cat.title,
-	// 				'value': cat.cat_id
-	// 			})
-	// 		})
-	// 		return options ;
-	// 	})
-	// }
-
-	// let options = getCatListe() ;
-
-//	console.log(options) ;
 
 const options = [
 	{ label: "Jardinage", value: 1 },
@@ -147,7 +130,6 @@ const options = [
           onChange={setCategory}
 		  >           
           </Select>
-		  {/* <DropdownList/> */}
             </div>
             <textarea
               name="message"

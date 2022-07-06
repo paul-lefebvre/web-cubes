@@ -1,56 +1,68 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import React, { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { deleteComment, editComment } from "../../actions/post.actions";
-import { UidContext } from "../AppContext";
 
-const EditDelteComment = ({ comment, postId }) => {
+const EditDelteComment = ({ comment, res_id }) => {
   const [isAuthor, setIsAuthor] = useState(false);
   const [edit, setEdit] = useState(false);
   const [text, setText] = useState("");
-  const uid = useContext(UidContext);
+  const userData = useSelector((state) => state.userReducer);
   const dispatch = useDispatch();
 
   const handleEdit = (e) => {
     e.preventDefault();
 
     if (text) {
-      dispatch(editComment(postId, comment.usr_id, text));
+      dispatch(editComment(res_id, comment.com_id, text));
       setText("");
       setEdit(false);
     }
   };
 
   const handleDelete = () => {
-    dispatch(deleteComment(postId, comment.usr_id));
+    dispatch(deleteComment(comment.com_id));
   };
 
   useEffect(() => {
     const checkAuthor = () => {
-      if (uid === comment.commenterId) {
+      if (userData.usr_id === comment.id_owner) {
         setIsAuthor(true);
       }
     };
     checkAuthor();
-  }, [uid, comment.commenterId]);
+  }, [userData, comment]);
 
   return (
     <div className="edit-comment">
-      {isAuthor && edit === false && (
-        <span onClick={() => setEdit(!edit)}>
-          <img src="./img/icons/edit.svg" alt="edit-comment" />
-        </span>
-      )}
+      {isAuthor && !edit ? (
+        <>
+          <span onClick={() => setEdit(!edit)}>
+            <img src="./img/icons/edit.svg" alt="edit-comment" />
+            <label
+              htmlFor="text"
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "right",
+                color: "black",
+              }}
+            >
+              Modifier
+            </label>
+          </span>
+        </>
+      ) : null}
       {isAuthor && edit && (
         <form action="" onSubmit={handleEdit} className="edit-comment-form">
           <label htmlFor="text" onClick={() => setEdit(!edit)}>
-            Editer
+            Fermer
           </label>
           <br />
           <input
             type="text"
             name="text"
             onChange={(e) => setText(e.target.value)}
-            defaultValue={comment.text}
+            defaultValue={comment.answers}
           />
           <br />
           <div className="btn">
