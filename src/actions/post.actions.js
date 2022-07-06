@@ -36,7 +36,11 @@ export const getPosts = (num) => {
 export const addPost = (data) => {
   return (dispatch) => {
     return axios
-      .post(`${process.env.REACT_APP_API_URL}api/ressources/`, data)
+      .post(`${process.env.REACT_APP_API_URL}api/ressources/`, {
+        cat_id: data.get("catego_id"),
+        usr_id: data.get("usr_id"),
+        answers: data.get("answers"),
+      })
       .then((res) => {
         if (res.data.errors) {
           dispatch({ type: GET_POST_ERRORS, payload: res.data.errors });
@@ -89,26 +93,27 @@ export const updatePost = (postId, message) => {
   };
 };
 
-export const deletePost = (postId) => {
+export const deletePost = (res_id) => {
   return (dispatch) => {
     return axios({
       method: "delete",
-      url: `${process.env.REACT_APP_API_URL}api/post/${postId}`,
+      url: `${process.env.REACT_APP_API_URL}api/ressources/${res_id}`,
     })
       .then((res) => {
-        dispatch({ type: DELETE_POST, payload: { postId } });
+        dispatch({ type: DELETE_POST, payload: { res_id } });
       })
       .catch((err) => console.log(err));
   };
 };
 
-export const addComment = (res_id, com_id, answers, id_owner) => {
+export const addComment = (res_id, data) => {
   return (dispatch) => {
-    return axios({
-      method: "post",
-      url: `${process.env.REACT_APP_API_URL}api/comments/`,
-      data: { com_id, answers, id_owner },
-    })
+    return axios
+      .post(`${process.env.REACT_APP_API_URL}api/comments/`, {
+		id_owner: data.get("id_owner"),
+        res_id: data.get("res_id"),
+        answers: data.get("answers"),
+      })
       .then((res) => {
         dispatch({ type: ADD_COMMENT, payload: { res_id } });
       })

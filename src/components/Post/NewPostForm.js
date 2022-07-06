@@ -3,10 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { addPost, getPosts } from "../../actions/post.actions";
 import { isEmpty, timestampParser } from "../Utils";
+import axios from "axios";
+import Select from "react-select";
 
 const NewPostForm = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [message, setMessage] = useState("");
+  const [category, setCategory] = useState([]);
   const [postPicture, setPostPicture] = useState(null);
   const [video, setVideo] = useState("");
   const [file, setFile] = useState();
@@ -15,10 +18,11 @@ const NewPostForm = () => {
   const dispatch = useDispatch();
 
   const handlePost = async () => {
-    if (message || postPicture || video) {
+    if (message || postPicture || video || category) {
       const data = new FormData();
       data.append("usr_id", userData.usr_id);
       data.append("answers", message);
+	  data.append("catego_id", category.value);
       if (file) data.append("file", file);
       data.append("video", video);
 
@@ -41,7 +45,37 @@ const NewPostForm = () => {
     setPostPicture("");
     setVideo("");
     setFile("");
+	setCategory("");
   };
+
+
+	// function getCatListe() {
+	// 	const options = [] ;
+	// 	axios.get(`${process.env.REACT_APP_API_URL}api/categories`).then(function (response) {
+
+	// 		let catliste = response.data ;
+			
+	// 		catliste.forEach((cat) => {
+	// 			options.push({
+	// 				'label': cat.title,
+	// 				'value': cat.cat_id
+	// 			})
+	// 		})
+	// 		return options ;
+	// 	})
+	// }
+
+	// let options = getCatListe() ;
+
+//	console.log(options) ;
+
+const options = [
+	{ label: "Jardinage", value: 1 },
+	{ label: "Bricolage", value: 2 },
+	{ label: "Décoration", value: 3 },
+	{ label: "Location", value: 4 },
+  ];
+
 
   useEffect(() => {
     if (!isEmpty(userData)) setIsLoading(false);
@@ -57,13 +91,14 @@ const NewPostForm = () => {
           setVideo(embed.split("&")[0]);
           findLink.splice(i, 1);
           setMessage(findLink.join(" "));
-          setPostPicture("");
+          setPostPicture("");		  
         }
       }
     };
-
+	
     handleVideo();
-  }, [userData, message, video]);
+	//setCategory("");
+  }, [userData, message, video, category.value]);
 
   return (
     <div className="post-container">
@@ -100,6 +135,20 @@ const NewPostForm = () => {
             </div>
           </NavLink>
           <div className="post-form">
+            <div style={{marginTop: "10px", marginBottom: "15px" }}  className="selectView">
+			<Select 
+          value={category}  
+		  options={options}   
+          placeholder="Choisissez une catégorie"
+          required={true}
+          dropdownPosition="top"
+          className="select"
+          color="#a61651"
+          onChange={setCategory}
+		  >           
+          </Select>
+		  {/* <DropdownList/> */}
+            </div>
             <textarea
               name="message"
               id="message"
@@ -127,6 +176,7 @@ const NewPostForm = () => {
                     <span>{timestampParser(Date.now())}</span>
                   </div>
                   <div className="content">
+					<p>{category.label}</p>
                     <p>{message}</p>
                     <img src={postPicture} alt="" />
                     {video && (
@@ -173,6 +223,7 @@ const NewPostForm = () => {
 
               {!isEmpty(error.format) && <p>{error.format}</p>}
               {!isEmpty(error.maxSize) && <p>{error.maxSize}</p>}
+
               <div className="btn-send">
                 {message || postPicture || video.length > 20 ? (
                   <button className="cancel" onClick={cancelPost}>

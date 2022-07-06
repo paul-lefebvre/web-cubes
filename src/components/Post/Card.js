@@ -55,21 +55,22 @@ const Card = ({ post }) => {
           <div className="card-right">
             <div className="card-header">
               <div className="pseudo">
-                  <h3>
-                    {!isEmpty(usersData[0]) &&
-                      usersData
-                        .map((user) => {
-                          if (user.usr_id === post.usr_id) return user.pseudo;
-                          else return null;
-                        })
-                        .join("")}
-                  </h3>
+                <h3>
+                  {!isEmpty(usersData[0]) &&
+                    usersData
+                      .map((user) => {
+                        if (user.usr_id === post.usr_id) return user.pseudo;
+                        else return null;
+                      })
+                      .join("")}
+                </h3>
                 {post.res_id !== userData.usr_id && (
                   <FollowHandler followed={post.usr_id} type={"card"} />
                 )}
               </div>
               <span>{dateParser(post.created_at)}</span>
             </div>
+            <span>{post.category ? post.category.title : ""}</span>
             {isUpdated === false && <p>{post.answers}</p>}
             {isUpdated && (
               <div className="update-post">

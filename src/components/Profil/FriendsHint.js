@@ -15,14 +15,15 @@ const FriendsHint = () => {
     const notFriendList = () => {
       let array = [];
       usersData.map((user) => {
-        if (
-          user.usr_id !== userData.usr_id
-          //   &&
-          //  !user.followers.includes(userData.usr_id)
-        ) {
-          return array.push(user.usr_id);
-        } else {
-          return null;
+        for (let i = 0; i < userData.abonnes.length; i++) {
+          if (
+            user.usr_id !== userData.usr_id &&
+            user.usr_id !== userData.abonnes[i].follower_id
+          ) {
+            return array.push(user.usr_id);
+          } else {
+            return null;
+          }
         }
       });
       array.sort(() => 0.5 - Math.random());
@@ -72,7 +73,8 @@ const FriendsHint = () => {
                       />
                       <p>{usersData[i].pseudo}</p>
                       <FollowHandler
-                        abonnements={usersData[i].usr_id}
+                        //abonnements={usersData[i].usr_id}
+                        idToFollow={usersData[i].usr_id}
                         type="suggestion"
                       />
                     </li>

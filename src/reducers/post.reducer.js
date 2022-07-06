@@ -1,4 +1,5 @@
 import {
+  ADD_COMMENT,
   DELETE_COMMENT,
   DELETE_POST,
   EDIT_COMMENT,
@@ -36,7 +37,7 @@ export default function postReducer(state = initialState, action) {
       });
     case UPDATE_POST:
       return state.map((post) => {
-        if (post.usr_id === action.payload.postId) {
+        if (post.usr_id === action.payload.res_Id) {
           return {
             ...post,
             message: action.payload.message,
@@ -44,7 +45,9 @@ export default function postReducer(state = initialState, action) {
         } else return post;
       });
     case DELETE_POST:
-      return state.filter((post) => post.usr_id !== action.payload.postId);
+      return state.filter((post) => post.usr_id !== action.payload.res_id);
+    case ADD_COMMENT:
+      return state.filter((post) => post.usr_id !== action.payload.res_Id);
     case EDIT_COMMENT:
       return state.map((post) => {
         if (post.usr_id === action.payload.postId) {

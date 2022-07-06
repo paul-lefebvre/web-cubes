@@ -54,25 +54,38 @@ export const updateBio = (userId, bio) => {
   };
 };
 
+// export const followUser = (follower_id, followed_id) => {
+//   return (dispatch) => {
+//     return axios({
+//       method: "patch",
+//       url: `${process.env.REACT_APP_API_URL}api/users/follow/` + follower_id,
+//       data: { followed_id },
+//     })
+//       .then((res) => {
+//         dispatch({ type: FOLLOW_USER, payload: { followed_id } });
+//       })
+//       .catch((err) => console.log(err));
+//   };
+// };
 export const followUser = (follower_id, followed_id) => {
-  return (dispatch) => {
-    return axios({
-      method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/users/follow/` + follower_id,
-      data: { followed_id },
-    })
-      .then((res) => {
-        dispatch({ type: FOLLOW_USER, payload: { followed_id } });
-      })
-      .catch((err) => console.log(err));
+	return (dispatch) => {
+	  return axios({
+		method: "post",
+		url: `${process.env.REACT_APP_API_URL}api/relations/`,
+		data: { follower_id, followed_id },
+	  })
+		.then((res) => {
+		  dispatch({ type: FOLLOW_USER, payload: { followed_id } });
+		})
+		.catch((err) => console.log(err));
+	};
   };
-};
 
 export const unfollowUser = (follower_id, idToUnfollow) => {
   return (dispatch) => {
     return axios({
-      method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/users/unfollow/` + follower_id,
+      method: "delete",
+      url: `${process.env.REACT_APP_API_URL}api/relations/` + follower_id,
       data: { idToUnfollow },
     })
       .then((res) => {

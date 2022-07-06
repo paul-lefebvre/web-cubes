@@ -3,32 +3,66 @@ import { useDispatch, useSelector } from "react-redux";
 import { followUser, unfollowUser } from "../../actions/user.actions";
 import { isEmpty } from "../Utils";
 
-const FollowHandler = ({ abonnements, type }) => {
+const FollowHandler = ({ idToFollow, type }) => {
   const userData = useSelector((state) => state.userReducer);
-  const [isFollowed, setIsFollowed] = useState(false);
+  const usersData = useSelector((state) => state.usersReducer);
+  let [isFollowed, setIsFollowed] = useState(false);
   const dispatch = useDispatch();
 
+  //console.log("id_suivi" + idToFollow + isFollowed);
+
   const handleFollow = () => {
-    dispatch(followUser(userData.usr_id, userData.abonnements));
+    dispatch(followUser(userData.usr_id, idToFollow));
     setIsFollowed(true);
   };
 
   const handleUnfollow = () => {
-    dispatch(unfollowUser(userData.usr_id, userData.abonnements));
+    dispatch(unfollowUser(userData.usr_id, idToFollow));
     setIsFollowed(false);
   };
 
+  
+
+  //   const getMesAbonnements = () => {
+  // 	console.log("idTofolow" + idToFollow)
+  //       for (let i = 0; i < userData.abonnements.length; i++) {
+  // 	 console.log("mes id suivis" + userData.abonnements[i].followed_id )
+  // 	//var obj = new Compteur();
+  //         if (idToFollow === userData.abonnements[i].followed_id) {
+  // 			console.log("mes id suivis" + userData.abonnements[i].followed_id )
+  // 			setIsFollowed(true);
+  //         } else setIsFollowed(false)
+  //       }
+  //   };
+  function Compteur() {
+	this.id = 0;
+	this.i = 0;
+  }
+
+  Compteur.prototype.ajouter = function (tableau) {
+	tableau.forEach(function (element) {
+	  this.id += element;
+	  ++this.i;
+	}, this);
+  };
+
   useEffect(() => {
-    if (!isEmpty(userData.abonnements)) {
-      if (userData.abonnements.includes(abonnements)) {
-        setIsFollowed(true);
-      } else setIsFollowed(false);
-    }
-  }, [userData, abonnements]);
+    let i = 0 ;
+    i++;
+	
+    //var obj = new Compteur();
+    console.log("idTofolow" + idToFollow);
+    console.log("mes id suivis" + userData.abonnements[i].followed_id);
+
+    if (idToFollow === userData.abonnements[i].followed_id) {
+      setIsFollowed(true);
+    } else setIsFollowed(false);
+    //getMesAbonnements();
+  }, [userData, idToFollow]);
 
   return (
     <>
-      {isFollowed && !isEmpty(userData) && (
+      {isFollowed && (
         <span onClick={handleUnfollow}>
           {type === "suggestion" && (
             <button className="unfollow-btn">Abonné</button>

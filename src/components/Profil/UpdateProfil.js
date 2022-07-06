@@ -83,7 +83,7 @@ const UpdateProfil = () => {
                         <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
                           <FollowHandler
-                            followed_id={user.usr_id}
+                            idToFollow={user.usr_id}
                             type={"suggestion"}
                           />
                         </div>
@@ -114,7 +114,7 @@ const UpdateProfil = () => {
                         <h4>{user.pseudo}</h4>
                         <div className="follow-handler">
                           <FollowHandler
-                            followed_id={user.usr_id}
+                            idToFollow={user.usr_id}
                             type={"suggestion"}
                           />
                         </div>

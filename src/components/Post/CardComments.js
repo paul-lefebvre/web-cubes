@@ -15,7 +15,12 @@ const CardComments = ({ post }) => {
     e.preventDefault();
 
     if (text) {
-      dispatch(addComment(post.usr_id, userData.usr_id, text, userData.pseudo))
+      const data = new FormData();
+      data.append("id_owner", userData.usr_id);
+      data.append("answers", text);
+      data.append("res_id", post.res_id);
+
+      dispatch(addComment(post.res_id, data))
         .then(() => dispatch(getPosts()))
         .then(() => setText(""));
     }
@@ -34,11 +39,11 @@ const CardComments = ({ post }) => {
             key={comment.id_owner}
           >
             <div className="left-part">
-			<img
-              src={
-                !isEmpty(usersData[0]) &&
-                usersData
-                  .map((user) => {
+              <img
+                src={
+                  !isEmpty(usersData[0]) &&
+                  usersData
+                    .map((user) => {
                       if (user.usr_id === comment.id_owner)
                         return `${
                           process.env.REACT_APP_API_URL +
@@ -46,33 +51,32 @@ const CardComments = ({ post }) => {
                           user.avatar_img
                         }`;
                       else return null;
-                  })
-                  .join("")
-              }
-              alt="commenter-pic"
-            />
+                    })
+                    .join("")
+                }
+                alt="commenter-pic"
+              />
             </div>
             <div className="right-part">
               <div className="comment-header">
                 <div className="pseudo">
-				  <h3>
-                  {usersData.map((user) => {
-                        if (user.usr_id === comment.id_owner) return user.pseudo;
+                  <h3>
+                    {usersData
+                      .map((user) => {
+                        if (user.usr_id === comment.id_owner)
+                          return user.pseudo;
                         else return null;
                       })
                       .join("")}
-                </h3>
+                  </h3>
                   {comment.id_owner !== userData.usr_id && (
-                    <FollowHandler
-                      abonnements={comment.com_id}
-                      type={"card"}
-                    />
+                    <FollowHandler abonnements={comment.id_owner} type={"card"} />
                   )}
                 </div>
                 <span>{timestampParser(comment.created_at)}</span>
               </div>
               <p>{comment.answers}</p>
-              <EditDelteComment comment={comment} res_id={post.usr_id} />
+              <EditDelteComment comment={comment} res_id={post.res_id} />
             </div>
           </div>
         );
