@@ -54,19 +54,6 @@ export const updateBio = (userId, bio) => {
   };
 };
 
-// export const followUser = (follower_id, followed_id) => {
-//   return (dispatch) => {
-//     return axios({
-//       method: "patch",
-//       url: `${process.env.REACT_APP_API_URL}api/users/follow/` + follower_id,
-//       data: { followed_id },
-//     })
-//       .then((res) => {
-//         dispatch({ type: FOLLOW_USER, payload: { followed_id } });
-//       })
-//       .catch((err) => console.log(err));
-//   };
-// };
 export const followUser = (follower_id, followed_id) => {
 	return (dispatch) => {
 	  return axios({
@@ -81,15 +68,15 @@ export const followUser = (follower_id, followed_id) => {
 	};
   };
 
-export const unfollowUser = (follower_id, idToUnfollow) => {
+export const unfollowUser = (follower_id, id, followed_id) => {
   return (dispatch) => {
     return axios({
       method: "delete",
-      url: `${process.env.REACT_APP_API_URL}api/relations/` + follower_id,
-      data: { idToUnfollow },
+      url: `${process.env.REACT_APP_API_URL}api/relations/${id}`,
+	  data: { follower_id, followed_id },
     })
       .then((res) => {
-        dispatch({ type: UNFOLLOW_USER, payload: { idToUnfollow } });
+        dispatch({ type: UNFOLLOW_USER, payload: { followed_id, follower_id } });
       })
       .catch((err) => console.log(err));
   };

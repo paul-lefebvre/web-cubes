@@ -22,16 +22,15 @@ const NewPostForm = () => {
       data.append("usr_id", userData.usr_id);
       data.append("answers", message);
 	  data.append("catego_id", category.value);
-      if (file) data.append("file", file);
+     // if (file) data.append("file", file);
       data.append("video", video);
 
-	//   const media = new FormData();
-	//   media.append("file", file);
+	   const media = new FormData();
+	   media.append("media", file);
 	//   media.append("res_id", res_id)
 
-      await dispatch(addPost(data));
+      await dispatch(addPost(data, media));
       dispatch(getPosts());
-	  //await dispatch(addMedia(media))
       cancelPost();
     } else {
       alert("Veuillez entrer un message");

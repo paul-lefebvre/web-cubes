@@ -7,6 +7,7 @@ import {
   LIKE_POST,
   UNLIKE_POST,
   UPDATE_POST,
+  UPLOAD_MEDIA
 } from "../actions/post.actions";
 
 const initialState = {};
@@ -15,6 +16,11 @@ export default function postReducer(state = initialState, action) {
   switch (action.type) {
     case GET_POSTS:
       return action.payload;
+	  case UPLOAD_MEDIA:
+      return {
+        ...state,
+        media: action.payload,
+      };
     case LIKE_POST:
       return state.map((post) => {
         if (post.usr_id === action.payload.res_id) {

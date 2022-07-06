@@ -4,6 +4,7 @@ import axios from "axios";
 export const GET_POSTS = "GET_POSTS";
 export const GET_ALL_POSTS = "GET_ALL_POSTS";
 export const ADD_POST = "ADD_POST";
+export const UPLOAD_MEDIA = "UPLOAD_MEDIA"
 export const LIKE_POST = "LIKE_POST";
 export const UNLIKE_POST = "UNLIKE_POST";
 export const UPDATE_POST = "UPDATE_POST";
@@ -51,7 +52,7 @@ export const getPosts = (num) => {
 //   };
 // };
 
-export const addPost = (data) => {
+export const addPost = (data, media) => {
   return (dispatch) => {
     return axios
       .post(`${process.env.REACT_APP_API_URL}api/ressources/`, {
@@ -59,19 +60,21 @@ export const addPost = (data) => {
         usr_id: data.get("usr_id"),
         answers: data.get("answers"),
       })
-
-    //   .then((res) => {
-    //     return axios.post(`${process.env.REACT_APP_API_URL}api/ressources/`, {
-    //       media: data.get("file"),
-    //     });
-    //   })
       .then((res) => {
         if (res.data.errors) {
           dispatch({ type: GET_POST_ERRORS, payload: res.data.errors });
         } else {
           dispatch({ type: GET_POST_ERRORS, payload: "" });
+		  return axios
+		  .post(`${process.env.REACT_APP_API_URL}api/medias/`, {
+			media: media.get("media")
+		  })
+		  .then((res) => {
+			dispatch({ type: UPLOAD_MEDIA, payload: res.data.media})
+		  });
         }
-      });
+      })
+	  .catch((err) => console.log(err))
   };
 };
 

@@ -33,7 +33,7 @@ export default function userReducer(state = initialState, action) {
       return {
         ...state,
         abonnements: state.abonnements.filter(
-          (id) => id !== action.payload.idToUnfollow
+          (id) => id !== action.payload.followed_id
         ),
       };
     default:
