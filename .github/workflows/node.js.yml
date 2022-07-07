@@ -32,7 +32,7 @@ jobs:
       - name: Install Playwright
         run: npx playwright install --with-deps
       - name: Run your tests
-        run: npm teste2e
+        run: npm run teste2e
       
           
 
