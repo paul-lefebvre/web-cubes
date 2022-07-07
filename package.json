@@ -27,7 +27,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "test:e2e": "playwright test",
+    "teste2e": "playwright test",
     "build:production": "react-scripts build"
   },
   "eslintConfig": {
