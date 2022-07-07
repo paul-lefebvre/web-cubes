@@ -26,5 +26,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
       - uses: microsoft/playwright-github-action@v1
-      - run: npm install && npm teste2e
+      - run: npm install 
+      - run: npx playwright install-deps && npx playwright install
+      - run: npm teste2e
+      
+          
 
