@@ -12,6 +12,7 @@ const NewPostForm = () => {
   const [postPicture, setPostPicture] = useState(null);
   const [video, setVideo] = useState("");
   const [file, setFile] = useState();
+  //const [media, setMedia] = useState();
   const userData = useSelector((state) => state.userReducer);
   const error = useSelector((state) => state.errorReducer.postError);
   const dispatch = useDispatch();
@@ -21,15 +22,12 @@ const NewPostForm = () => {
       const data = new FormData();
       data.append("usr_id", userData.usr_id);
       data.append("answers", message);
-	  data.append("catego_id", category.value);
-     // if (file) data.append("file", file);
+      data.append("catego_id", category.value);
+      // data.append("media", media);
+      if (file) data.append("file", file);
       data.append("video", video);
 
-	   const media = new FormData();
-	   media.append("media", file);
-	//   media.append("res_id", res_id)
-
-      await dispatch(addPost(data, media));
+      await dispatch(addPost(data));
       dispatch(getPosts());
       cancelPost();
     } else {
@@ -48,16 +46,15 @@ const NewPostForm = () => {
     setPostPicture("");
     setVideo("");
     setFile("");
-	setCategory("");
+    setCategory("");
   };
 
-const options = [
-	{ label: "Jardinage", value: 1 },
-	{ label: "Bricolage", value: 2 },
-	{ label: "Décoration", value: 3 },
-	{ label: "Location", value: 4 },
+  const options = [
+    { label: "Jardinage", value: 1 },
+    { label: "Bricolage", value: 2 },
+    { label: "Décoration", value: 3 },
+    { label: "Location", value: 4 },
   ];
-
 
   useEffect(() => {
     if (!isEmpty(userData)) setIsLoading(false);
@@ -73,13 +70,13 @@ const options = [
           setVideo(embed.split("&")[0]);
           findLink.splice(i, 1);
           setMessage(findLink.join(" "));
-          setPostPicture("");		  
+          setPostPicture("");
         }
       }
     };
-	
+
     handleVideo();
-	//setCategory("");
+    //setCategory("");
   }, [userData, message, video, category.value]);
 
   return (
@@ -117,18 +114,20 @@ const options = [
             </div>
           </NavLink>
           <div className="post-form">
-            <div style={{marginTop: "10px", marginBottom: "15px" }}  className="selectView">
-			<Select 
-          value={category}  
-		  options={options}   
-          placeholder="Choisissez une catégorie"
-          required={true}
-          dropdownPosition="top"
-          className="select"
-          color="#a61651"
-          onChange={setCategory}
-		  >           
-          </Select>
+            <div
+              style={{ marginTop: "10px", marginBottom: "15px" }}
+              className="selectView"
+            >
+              <Select
+                value={category}
+                options={options}
+                placeholder="Choisissez une catégorie"
+                required={true}
+                dropdownPosition="top"
+                className="select"
+                color="#a61651"
+                onChange={setCategory}
+              ></Select>
             </div>
             <textarea
               name="message"
@@ -157,7 +156,7 @@ const options = [
                     <span>{timestampParser(Date.now())}</span>
                   </div>
                   <div className="content">
-					<p>{category.label}</p>
+                    <p>{category.label}</p>
                     <p>{message}</p>
                     <img src={postPicture} alt="" />
                     {video && (

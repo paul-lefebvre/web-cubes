@@ -13,6 +13,7 @@ const DeleteCard = (props) => {
       onClick={() => {
         if (window.confirm("Voulez-vous supprimer cet article ?")) {
           deleteQuote();
+		  window.location.reload();
         }
       }}
     >

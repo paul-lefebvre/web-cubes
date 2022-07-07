@@ -4,7 +4,7 @@ import axios from "axios";
 export const GET_POSTS = "GET_POSTS";
 export const GET_ALL_POSTS = "GET_ALL_POSTS";
 export const ADD_POST = "ADD_POST";
-export const UPLOAD_MEDIA = "UPLOAD_MEDIA"
+export const UPLOAD_MEDIA = "UPLOAD_MEDIA";
 export const LIKE_POST = "LIKE_POST";
 export const UNLIKE_POST = "UNLIKE_POST";
 export const UPDATE_POST = "UPDATE_POST";
@@ -34,6 +34,38 @@ export const getPosts = (num) => {
   };
 };
 
+export const addPost = (data) => {
+  return (dispatch) => {
+    return axios
+      .post(`${process.env.REACT_APP_API_URL}api/ressources/`, {
+        cat_id: data.get("catego_id"),
+        usr_id: data.get("usr_id"),
+        answers: data.get("answers"),
+      })
+      .then((res) => {
+		//let reponse = res;
+        if (res.data.errors) {
+          dispatch({ type: GET_POST_ERRORS, payload: res.data.errors });
+        } else {
+          dispatch({ type: GET_POST_ERRORS, payload: "" });
+        }
+
+		// return axios
+		// .post(`${process.env.REACT_APP_API_URL}api/medias/`, {
+		// 	res_id: reponse.data.ressource.res_id,
+		// 	data
+		// })
+		// .then((res) => {
+		// 	if (res.data.errors) {
+		// 		dispatch({ type: GET_POST_ERRORS, payload: res.data.errors });
+		// 	  } else {
+		// 		dispatch({ type: GET_POST_ERRORS, payload: "" });
+		// 	  }
+		// })
+      });
+  };
+};
+
 // export const addPost = (data) => {
 //   return (dispatch) => {
 //     return axios
@@ -47,60 +79,66 @@ export const getPosts = (num) => {
 //           dispatch({ type: GET_POST_ERRORS, payload: res.data.errors });
 //         } else {
 //           dispatch({ type: GET_POST_ERRORS, payload: "" });
+// 		  //console.log(res.data.ressource.res_id);
+// 		console.log(res.data);
+// 		let ressource_id = res.data.ressource.res_id;
+//           return axios
+//             .post(`${process.env.REACT_APP_API_URL}api/medias/`, {
+//               res_id: ressource_id,
+// 			  data
+//             })
+//             .then((res) => {
+//               dispatch({ type: UPLOAD_MEDIA, payload: res.data.media.path });
+//             });
 //         }
-//       });
+//       })
+//       .catch((err) => console.log(err));
 //   };
 // };
 
-export const addPost = (data, media) => {
-  return (dispatch) => {
-    return axios
-      .post(`${process.env.REACT_APP_API_URL}api/ressources/`, {
-        cat_id: data.get("catego_id"),
-        usr_id: data.get("usr_id"),
-        answers: data.get("answers"),
-      })
-      .then((res) => {
-        if (res.data.errors) {
-          dispatch({ type: GET_POST_ERRORS, payload: res.data.errors });
-        } else {
-          dispatch({ type: GET_POST_ERRORS, payload: "" });
-		  return axios
-		  .post(`${process.env.REACT_APP_API_URL}api/medias/`, {
-			media: media.get("media")
-		  })
-		  .then((res) => {
-			dispatch({ type: UPLOAD_MEDIA, payload: res.data.media})
-		  });
-        }
-      })
-	  .catch((err) => console.log(err))
-  };
-};
+// export const uploadMedia = (pic) => {
+//   return (dispatch) => {
+//     return axios
+//       .get(`${process.env.REACT_APP_API_URL}api/ressources/`)
+//       .then((res) => {
+//         if (res.data.errors) {
+//           dispatch({ type: GET_POST_ERRORS, payload: res.data.errors });
+//         } else {
+//           dispatch({ type: GET_POST_ERRORS, payload: "" });
+//           return axios
+//             .post(`${process.env.REACT_APP_API_URL}api/medias/`, res.data.res_id, pic)
+//             .then((res) => {
+//               dispatch({ type: UPLOAD_MEDIA, payload: res.data.media.path });
+//             });
+//         }
+//       })
+// 	  .catch((err) => console.log(err));
+//   };
+// };
 
-export const likePost = (postId, userId) => {
+export const likePost = (res_id, usr_id) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/post/like-post/` + postId,
-      data: { id: userId },
+      url: `${process.env.REACT_APP_API_URL}api/post/like-post/` + res_id,
+      data: { id: usr_id },
     })
       .then((res) => {
-        dispatch({ type: LIKE_POST, payload: { postId, userId } });
+        dispatch({ type: LIKE_POST, payload: { res_id, usr_id } });
       })
       .catch((err) => console.log(err));
   };
 };
 
-export const unlikePost = (postId, userId) => {
+export const unlikePost = (res_id, usr_id) => {
   return (dispatch) => {
     return axios({
       method: "patch",
-      url: `${process.env.REACT_APP_API_URL}api/post/unlike-post/` + postId,
-      data: { id: userId },
+      url: `${process.env.REACT_APP_API_URL}api/post/unlike-post/` + res_id,
+      data: { id: usr_id },
     })
       .then((res) => {
-        dispatch({ type: UNLIKE_POST, payload: { postId, userId } });
+        dispatch({ type: UNLIKE_POST, payload: { res_id, usr_id } });
       })
       .catch((err) => console.log(err));
   };
@@ -169,7 +207,7 @@ export const deleteComment = (com_id) => {
       url: `${process.env.REACT_APP_API_URL}api/comments/${com_id}`,
     })
       .then((res) => {
-        dispatch({ type: DELETE_COMMENT, payload: {com_id } });
+        dispatch({ type: DELETE_COMMENT, payload: { com_id } });
       })
       .catch((err) => console.log(err));
   };

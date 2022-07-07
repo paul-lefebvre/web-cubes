@@ -36,6 +36,7 @@ export default function userReducer(state = initialState, action) {
           (id) => id !== action.payload.followed_id
         ),
       };
+
     default:
       return state;
   }

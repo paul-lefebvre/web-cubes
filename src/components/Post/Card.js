@@ -88,8 +88,8 @@ const Card = ({ post }) => {
                 </div>
               </div>
             )}
-            {post.picture && (
-              <img src={post.picture} alt="card-pic" className="card-pic" />
+            {post.media && (
+			<img src={process.env.REACT_APP_API_URL + "public/upload/images/media/" + post.media.path } alt="card-pic" className="card-pic" />
             )}
             {post.video && (
               <iframe

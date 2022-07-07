@@ -21,6 +21,7 @@ const EditDelteComment = ({ comment, res_id }) => {
 
   const handleDelete = () => {
     dispatch(deleteComment(comment.com_id));
+	window.location.reload();
   };
 
   useEffect(() => {

@@ -20,7 +20,6 @@ export const getUser = (uid) => {
 };
 
 export const uploadPicture = (data, id) => {
- // console.log(data);
   return (dispatch) => {
     return axios
 	.post(`${process.env.REACT_APP_API_URL}api/users/${id}/upload`, data)
@@ -68,7 +67,7 @@ export const followUser = (follower_id, followed_id) => {
 	};
   };
 
-export const unfollowUser = (follower_id, id, followed_id) => {
+export const unfollowUser = (follower_id, followed_id, id) => {
   return (dispatch) => {
     return axios({
       method: "delete",
@@ -76,7 +75,7 @@ export const unfollowUser = (follower_id, id, followed_id) => {
 	  data: { follower_id, followed_id },
     })
       .then((res) => {
-        dispatch({ type: UNFOLLOW_USER, payload: { followed_id, follower_id } });
+        dispatch({ type: UNFOLLOW_USER, payload: {followed_id } });
       })
       .catch((err) => console.log(err));
   };
