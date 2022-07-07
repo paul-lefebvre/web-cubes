@@ -29,5 +29,5 @@ jobs:
           node-version: "14.X"
       - run: npm install
       - run: npm build --if-present
-      - run: teste2e
+      - run: test
 
