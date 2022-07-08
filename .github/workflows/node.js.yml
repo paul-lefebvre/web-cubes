@@ -30,6 +30,8 @@ jobs:
           node-version: '14'
       - name: Install dependencies
         run: npm ci
+      - name: Test jest
+        run: npm run testUnit
       - name: Install Playwright
         run: npx playwright install --with-deps && npm run teste2e
       
