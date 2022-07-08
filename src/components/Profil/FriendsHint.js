@@ -15,10 +15,10 @@ const FriendsHint = () => {
     const notFriendList = () => {
       let array = [];
       usersData.map((user) => {
-        for (let i = 0; i < userData.abonnes.length; i++) {
+        for (let i = 0; i < userData.abonnements.length; i++) {
           if (
             user.usr_id !== userData.usr_id &&
-            user.usr_id !== userData.abonnes[i].follower_id
+            user.usr_id !== userData.abonnements[i].followed_id
           ) {
             return array.push(user.usr_id);
           } else {

@@ -231,7 +231,7 @@ const SignUpForm = () => {
         })
         .catch(
           (err) => console.log(err),
-          alert("Un incident est survenu. Veuillez réessayer...")
+         // alert("Un incident est survenu. Veuillez réessayer...")
         );
     }
     console.log(pseudo, firstname, lastname, mail, password, roles);
