@@ -67,16 +67,24 @@ export const followUser = (follower_id, followed_id) => {
 	};
   };
 
-export const unfollowUser = (follower_id, followed_id, id) => {
+export const unfollowUser = ( followed_id) => {
   return (dispatch) => {
-    return axios({
-      method: "delete",
-      url: `${process.env.REACT_APP_API_URL}api/relations/${id}`,
-	  data: { follower_id, followed_id },
-    })
+	return axios
+      .get(`${process.env.REACT_APP_API_URL}api/relations`)
+      .then((res) => {
+		if (res.data.errors) {
+			dispatch({ type: GET_USER_ERRORS, payload: res.data.errors });
+		  } else {
+			dispatch({ type: GET_USER_ERRORS, payload: "" });
+			console.log(res.data.rel_id)
+			return axios
+			
+      .put(`${process.env.REACT_APP_API_URL}api/relations/`+ res.data.rel_id)
       .then((res) => {
         dispatch({ type: UNFOLLOW_USER, payload: {followed_id } });
       })
       .catch((err) => console.log(err));
-  };
+	}})
+  }
 };
+

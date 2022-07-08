@@ -11,11 +11,13 @@ const FollowHandler = ({ idToFollow, type }) => {
   const handleFollow = () => {
     dispatch(followUser(userData.usr_id, idToFollow));
     setIsFollowed(true);
+	window.location.reload();
   };
 
   const handleUnfollow = () => {
     dispatch(unfollowUser(userData.usr_id, idToFollow ));
     setIsFollowed(false);
+	window.location.reload();
   };
 
   useEffect(() => {
